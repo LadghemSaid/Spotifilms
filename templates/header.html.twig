@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-outline-success" href="#" role="button">
+                    {{ app.user.username }}
+                </a>
+            {% endif %}
+        </div>
+        <div class="col-sm-6 text-right">
+            {% if is_granted('ROLE_USER') %}
+                <a class="btn btn-outline-danger" href="{{ path('app_logout') }}" role="button">
+                    Disconnect
+                </a>
+            {% else %}
+                <a class="btn btn-primary" role="button" href="{{ path('app_login') }}">Log me</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
