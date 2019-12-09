@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home Page !{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="text-primary">Hello Guys SUP ?</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="bg-secondary">Run : yarn run encore dev ( for dev )</h2>
+            <h2 class="bg-primary">Run : yarn run encore production ( for production )</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h4>Euh comment je peux upload un fichier ?
+            </h4>
+        </div>
+        <div class="col-sm-3">
+            <a target="_blank" href="https://symfony.com/doc/current/controller/upload_file.html">
+                <img src="{{ asset('images/users/tigrou.gif') }}"/>
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover Title"
+                    data-content="And here's some amazing content. It's very Attractive. Right?">
+                Ah Ah Ah
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="button " href="{{ path('home')}}">Home Page</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
