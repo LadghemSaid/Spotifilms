@@ -65,14 +65,14 @@ class Comments
         return $this;
     }
 
-    public function getScore(): ?string
+    public function getPositive(): ?bool
     {
-        return $this->score;
+        return $this->positive;
     }
 
-    public function setScore(string $score): self
+    public function setPositive(bool $positive): self
     {
-        $this->score = $score;
+        $this->positive = $positive;
 
         return $this;
     }
