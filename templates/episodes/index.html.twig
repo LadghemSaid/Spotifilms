@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Episodes index{% endblock %}
+
+{% block body %}
+    <h1>Episodes index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Summary</th>
+                <th>Number</th>
+                <th>Season</th>
+                <th>Duration</th>
+                <th>Premiere</th>
+                <th>Url</th>
+                <th>Image</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for episode in episodes %}
+            <tr>
+                <td>{{ episode.id }}</td>
+                <td>{{ episode.name }}</td>
+                <td>{{ episode.summary }}</td>
+                <td>{{ episode.number }}</td>
+                <td>{{ episode.season }}</td>
+                <td>{{ episode.duration }}</td>
+                <td>{{ episode.premiere ? episode.premiere|date('Y-m-d') : '' }}</td>
+                <td>{{ episode.url }}</td>
+                <td><img src="{{ episode.image }}" /></td>
+                <td>{{ episode.createdAt ? episode.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('episodes_show', {'id': episode.id}) }}">show</a>
+                    <a href="{{ path('episodes_edit', {'id': episode.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('episodes_new') }}">Create new</a>
+{% endblock %}

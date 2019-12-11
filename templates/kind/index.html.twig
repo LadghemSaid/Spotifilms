@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Kind index{% endblock %}
+
+{% block body %}
+    <h1>Kind index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for kind in kinds %}
+            <tr>
+                <td>{{ kind.id }}</td>
+                <td>{{ kind.name }}</td>
+                <td>
+                    <a href="{{ path('kind_show', {'id': kind.id}) }}">show</a>
+                    <a href="{{ path('kind_edit', {'id': kind.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('kind_new') }}">Create new</a>
+{% endblock %}

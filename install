@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+composer.phar install
+
+yarn install
+
+yarn run encore dev
+
+./bdd

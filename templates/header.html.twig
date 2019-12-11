@@ -14,7 +14,22 @@
                 </a>
             {% else %}
                 <a class="btn btn-primary" role="button" href="{{ path('app_login') }}">Log me</a>
+                <a class="btn btn-primary" role="button" href="{{ path('app_register') }}">S'inscrire</a>
             {% endif %}
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <a class="text-primary" href="{{ path('kind_index') }}">Kind</a>
+        </div>
+        <div class="col-sm-2">
+            <a class="text-primary" href="{{ path('series_index') }}">Series</a>
+        </div>
+        <div class="col-sm-2">
+            <a class="text-primary" href="{{ path('episodes_index') }}">Episodes</a>
+        </div>
+    </div>
+</div>
+

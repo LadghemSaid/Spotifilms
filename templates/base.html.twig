@@ -12,6 +12,9 @@
         {% endblock %}
     </head>
     <body>
+        {% block flash %}
+             {% include 'flash.html.twig' %}
+         {% endblock %}
         {% block header %}
             {% include 'header.html.twig' %}
         {% endblock %}

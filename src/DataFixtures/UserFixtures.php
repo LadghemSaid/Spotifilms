@@ -26,7 +26,8 @@ class UserFixtures extends Fixture
         $encoded = $this->encoder->encodePassword($user, $plainPassword);
         $user->setPassword($encoded);
         $user->addRole('ROLE_ADMIN');
-        //$user->setCreatedAt(new \DateTime('now'));
+        $user->setCreatedAt(new \DateTime('now'));
+        $user->setEmail('zimzim@gmail.com');
         $this->addReference($user->getUsername(), $user);
         $manager->persist($user);
 
@@ -35,16 +36,18 @@ class UserFixtures extends Fixture
         $plainPassword = $user->getUsername();
         $encoded = $this->encoder->encodePassword($user, $plainPassword);
         $user->setPassword($encoded);
-        //$user->setCreatedAt(new \DateTime('now'));
+        $user->setCreatedAt(new \DateTime('now'));
+        $user->setEmail('fred@gmail.com');
         $this->addReference($user->getUsername(), $user);
         $manager->persist($user);
 
         $user = new User();
-        $user->setUsername('Giles');
+        $user->setUsername('Gilles');
         $plainPassword = $user->getUsername();
         $encoded = $this->encoder->encodePassword($user, $plainPassword);
         $user->setPassword($encoded);
-        //$user->setCreatedAt(new \DateTime('now'));
+        $user->setCreatedAt(new \DateTime('now'));
+        $user->setEmail('gilles@gmail.com');
         $this->addReference($user->getUsername(), $user);
         $manager->persist($user);
 

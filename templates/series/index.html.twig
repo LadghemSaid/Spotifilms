@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Series index{% endblock %}
+
+{% block body %}
+    <h1>Series index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Summary</th>
+                <th>Language</th>
+                <th>Score</th>
+                <th>Status</th>
+                <th>Premiere</th>
+                <th>Url</th>
+                <th>Image</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for series in series %}
+            <tr>
+                <td>{{ series.id }}</td>
+                <td>{{ series.name }}</td>
+                <td>{{ series.summary|raw }}</td>
+                <td>{{ series.language }}</td>
+                <td>{{ series.score }}</td>
+                <td>{{ series.status }}</td>
+                <td>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</td>
+                <td>{{ series.url }}</td>
+                <td><img src="{{ series.image }}" /></td>
+                <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('series_show', {'id': series.id}) }}">show</a>
+                    <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('series_new') }}">Create new</a>
+{% endblock %}
