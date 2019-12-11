@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -64,6 +66,16 @@ class User implements UserInterface
      * @ORM\Column(type="text", nullable=true)
      */
     private $overview;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Episodes")
+     */
+    private $Episodes;
+
+    public function __construct()
+    {
+        $this->Episodes = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -193,6 +205,32 @@ class User implements UserInterface
     public function setOverview(?string $overview): self
     {
         $this->overview = $overview;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Episodes[]
+     */
+    public function getEpisodes(): Collection
+    {
+        return $this->Episodes;
+    }
+
+    public function addEpisode(Episodes $episode): self
+    {
+        if (!$this->Episodes->contains($episode)) {
+            $this->Episodes[] = $episode;
+        }
+
+        return $this;
+    }
+
+    public function removeEpisode(Episodes $episode): self
+    {
+        if ($this->Episodes->contains($episode)) {
+            $this->Episodes->removeElement($episode);
+        }
 
         return $this;
     }
