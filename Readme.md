@@ -1,4 +1,5 @@
-#**MARATHON 2019 - 2020**
+#MARATHON 2019 - 2020**
+
 
 ## Installation
 
@@ -14,10 +15,18 @@ DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.
 
 
 
-### Launch :
-
 ```
 ./install
+```
+
+## Launch Server Symfony local
+```
+php bin/console server:start
+```
+
+## Update CSS or/and JS
+```
+yarn run encode dev
 ```
 
 
