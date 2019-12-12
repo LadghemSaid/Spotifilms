@@ -46,28 +46,28 @@ ___
 
 ## Update CSS or/and JS
 
-###Avec yarn
+### Avec yarn
 
-#####Dev
+##### Dev
 
 ```
 yarn run encore dev
 ```
 
-#####Prod
+##### Prod
 
 ```
 yarn run encore production
 ```
 
-###Avec npm
+### Avec npm
 
-#####Dev
+##### Dev
 ```
 npm run dev
 ```
 
-#####Prod
+##### Prod
 
 ```
 npm run build
@@ -79,4 +79,52 @@ ___
 ___
 ___
 
-### Enjoy and team play
+## Utilisateur
+
+| Username   |      Password      |  Role |
+|:----------|:-------------|:------|
+| ZimZim |  ZimZim | ROLE_ADMIN |
+| Fred |   Fred   |   ROLE_ADMIN |
+| Gilles |   Gilles   |   ROLE_USER |
+| Sebastien |   Sebastien   |   ROLE_USER |
+
+
+___
+___
+___
+
+
+## For upload File ( SysAdmin Only )
+```
+chown -R www-data:www-data public/images/users
+chown -R www-data:www-data public/video/series
+```
+
+
+___
+___
+___
+
+
+
+## Enjoy and team play
+
+
+
+
+___
+___
+___
+
+
+___
+___
+___
+
+
+___
+___
+___
+
+
+

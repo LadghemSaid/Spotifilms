@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     users_directory: '%kernel.project_dir%/public/images/users'
+    series_directory: '%kernel.project_dir%/public/video/series'
     data_directory: '%kernel.project_dir%/data'
 services:
     # default configuration for services in *this* file

@@ -4,6 +4,9 @@
             {% if is_granted('ROLE_USER') %}
                 <a class="btn btn-outline-success" href="#" role="button">
                     {{ app.user.username }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        -ADMIN-
+                    {% endif %}
                 </a>
             {% endif %}
         </div>

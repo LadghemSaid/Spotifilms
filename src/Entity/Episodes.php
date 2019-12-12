@@ -192,4 +192,9 @@ class Episodes
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
