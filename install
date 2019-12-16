@@ -8,6 +8,9 @@ cp ../.symfony/bin/symfony symfony
 
 composer install
 
+yarn config set proxy http://cache-iutl.univ-artois.fr:3128
+yarn config set https-proxy http://cache-iutl.univ-artois.fr:3128
+
 yarn install
 
 yarn run encore dev
