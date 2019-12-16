@@ -30,3 +30,4 @@ yarn-error.log
 ###> Symfony/server ###
 /symfony
 ###< Symfony/server ###
+/webpack.config.js
