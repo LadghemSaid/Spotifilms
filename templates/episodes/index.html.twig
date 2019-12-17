@@ -32,7 +32,7 @@
                 <td>{{ episode.duration }}</td>
                 <td>{{ episode.premiere ? episode.premiere|date('Y-m-d') : '' }}</td>
                 <td>{{ episode.url }}</td>
-                <td><img src="{{ episode.image }}" /></td>
+                <td><img src="{{ base_url~episode.image }}" /></td>
                 <td>{{ episode.createdAt ? episode.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('episodes_show', {'id': episode.id}) }}">show</a>

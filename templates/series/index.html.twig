@@ -32,7 +32,7 @@
                 <td>{{ series.status }}</td>
                 <td>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</td>
                 <td>{{ series.url }}</td>
-                <td><img src="{{ series.image }}" /></td>
+                <td><img src="{{ base_url~series.image }}" /></td>
                 <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('series_show', {'id': series.id}) }}">show</a>
