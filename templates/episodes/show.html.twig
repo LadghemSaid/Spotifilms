@@ -50,6 +50,16 @@
         </tbody>
     </table>
 
+
+    {% if  episode_precedent %}
+        <a href="{{ path('episodes_show', {'id': episode_precedent.id}) }}">Episode précédent</a>
+    {% endif %}
+
+    {% if episode_suivant %}
+        <a href="{{ path('episodes_show', {'id': episode_suivant.id}) }}">Episode Suivant</a>
+    {% endif %}
+
+    <br>
     <a href="{{ path('episodes_index') }}">back to list</a>
 
     <a href="{{ path('episodes_edit', {'id': episode.id}) }}">edit</a>

@@ -51,10 +51,12 @@ class EpisodesController extends AbstractController
     /**
      * @Route("/{id}", name="episodes_show", methods={"GET"})
      */
-    public function show(Episodes $episode): Response
+    public function show(Episodes $episode, EpisodesRepository $episodesRepository): Response
     {
         return $this->render('episodes/show.html.twig', [
             'episode' => $episode,
+            'episode_suivant' => $episodesRepository->findOneBy(['id' => $episode->getNumber()+1]),
+            'episode_precedent' => $episodesRepository->findOneBy(['id' => $episode->getNumber()-1])
         ]);
     }
 
