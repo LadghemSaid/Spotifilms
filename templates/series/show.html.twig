@@ -47,6 +47,15 @@
                 <th>Created_at</th>
                 <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            {% for comment in comments %}
+                {%  if comment.Series.id == series.id %}
+                    <tr>
+                        <th>L'avis de la rédaction</th>
+                        <td>{{ comment.content }}</td>
+                    </tr>
+                {%  endif %}
+            {%  endfor %}
+
         </tbody>
     </table>
 
