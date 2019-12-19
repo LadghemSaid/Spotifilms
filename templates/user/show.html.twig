@@ -80,9 +80,12 @@
 
     <a href="{{ path('user_index') }}">back to list</a>
 
+    {% if app.user == user or is_granted('ROLE_ADMIN') %}
     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') == true %}
     {{ include('user/_delete_form.html.twig') }}
+
     <h2>Commentaires</h2>
     {% if comments != null %}
         <table class="table">
@@ -130,5 +133,6 @@
         </table>
     {% else %}
         <i>Cet utilisateur n'a guere visionné de Série</i>
+
     {% endif %}
 {% endblock %}
