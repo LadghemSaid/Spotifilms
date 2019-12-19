@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Episodes;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,6 +20,13 @@ class EpisodesRepository extends ServiceEntityRepository
         parent::__construct($registry, Episodes::class);
     }
 
+    /*public function findAllByUser(User $user){
+        return $this->createQueryBuilder('e')
+            ->setParameter('user', $user)
+            ->where('e.')
+            ->getQuery()
+            ->getResult();
+    }*/
     // /**
     //  * @return Series[] Returns an array of Series objects
     //  */

@@ -42,6 +42,42 @@
         </tbody>
     </table>
 
+    <h2>Potites Stats</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Temps perdu a procrastiner (en h)</th>
+                <th>Nombre d'épisodes vus</th>
+                <th>Nombre de commentaires postés</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% set nbhours = 0%}
+                    {% for episode in episodes%}
+                        {% set nbhours  = nbhours + episode.duration %}
+                    {% endfor %}
+                    {{ nbhours }}
+                </td>
+                <td>
+                    {% set nbepisodes = 0%}
+                    {% for episode in episodes%}
+                        {% set nbepisodes = nbepisodes + 1 %}
+                    {% endfor %}
+                    {{ nbepisodes }}
+                </td>
+                <td>{% set nbcomments = 0%}
+                    {% for comment in comments%}
+                        {% set nbcomments = nbcomments + 1 %}
+                    {% endfor %}
+                    {{ nbcomments }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
     <a href="{{ path('user_index') }}">back to list</a>
 
     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
@@ -68,6 +104,31 @@
             </tbody>
         </table>
     {% else %}
-        <i>Cet utiilsateur n'a pas encore écrit de commentaire</i>
+        <i>Cet utilisateur n'a malencontreusement touché aucune série de sa plume divine</i>
+    {% endif %}
+    <h2>Series vues</h2>
+    {% if series != null %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Summary</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                    <th>Kinds</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for serie in series %}
+                <td>{{ serie.name }}</td>
+                <td>{{ serie.summary }}</td>
+                <td>{{ serie.score}}</td>
+                <td>{{ serie.status }}</td>
+                <td>{{ serie.Kinds }}</td>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <i>Cet utilisateur n'a guere visionné de Série</i>
     {% endif %}
 {% endblock %}
