@@ -104,7 +104,7 @@
     <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
 
     {{ include('series/_delete_form.html.twig') }}
-
+    {% endif %}
     <h2>Potits avis</h2>
     {% if comments != null %}
         <a href="{{ path('comments_new', {"id": series.id}) }}">Rajouter un potit mot de votre plume divine</a>
