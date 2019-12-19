@@ -19,13 +19,49 @@ class CommentsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comments::class);
     }
-    public function findAllCommentsBySerie(Series $series){
+    public function findAllCommentsBySerie(Series $series, $order){
+        if($order == 'ASC') {
+            return $this->createQueryBuilder('c')
+                ->setParameter('series', $series)
+                ->where('c.Series = :series')
+                ->orderBy('c.positive', 'DESC')
+                ->getQuery()
+                ->getResult();
+        } else if($order == 'DESC') {
+            return $this->createQueryBuilder('c')
+                ->setParameter('series', $series)
+                ->where('c.Series = :series')
+                ->orderBy('c.positive','ASC')
+                ->getQuery()
+                ->getResult();
+        } else {
+            return $this->createQueryBuilder('c')
+                ->setParameter('series', $series)
+                ->where('c.Series = :series')
+                ->getQuery()
+                ->getResult();
+        }
+    }
+
+    public function averageValidatedCommentsBySerie(Series $series) {
         return $this->createQueryBuilder('c')
+            ->select('AVG(c.validated)')
             ->setParameter('series', $series)
             ->where('c.Series = :series')
             ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findAllByUser($user){
+        return $this->createQueryBuilder('c')
+            ->setParameter('user', $user)
+            ->where('c.User = :user')
+            ->orderBy('c.Series','ASC')
+            ->getQuery()
             ->getResult();
     }
+
+
     // /**
     //  * @return Comments[] Returns an array of Comments objects
     //  */

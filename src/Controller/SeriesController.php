@@ -77,15 +77,18 @@ class SeriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="series_show", methods={"GET"})
+     * @Route("/{id}/{order}", name="series_show", methods={"GET"})
      */
-    public function show(Series $series, CommentsRepository $commentsRepository, EpisodesRepository $episodesRepository): Response
+    public function show(Series $series, CommentsRepository $commentsRepository, EpisodesRepository $episodesRepository,
+        $order = null): Response
     {
+        $comments = $commentsRepository->findAllCommentsBySerie($series,$order);
+
         return $this->render('series/show.html.twig', [
-            'episodes' => $episodesRepository->findAllEpisodesBySeries(($series)),
-            'comments' => $commentsRepository->findAllCommentsBySerie($series),
+            'episodes' => $episodesRepository->findAllEpisodesBySeries($series,null),
+            'comments' => $comments,
             'series' => $series,
-            'comments' => $commentsRepository->findAll(),
+            'average_positive' => $commentsRepository->averageValidatedCommentsBySerie($series)
         ]);
     }
 

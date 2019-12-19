@@ -107,6 +107,10 @@
 
     <h2>Potits avis</h2>
     {% if comments != null %}
+        <a href="{{ path('comments_new') }}">Rajouter un potit mot de votre plume divine</a>
+        <a href="{{ path('series_show', {'id': series.id, 'order':'ASC'}) }}">Trier les series par avis positifs</a>
+        <a href="{{ path('series_show', {'id': series.id, 'order':'DESC'}) }}">Trier les series par avis negatifs</a>
+        <h3 >Pourcentage des commentaires validés : {{ average_positive * 100 }}%</h3>
         <table class="table">
             <thead>
             <tr>
@@ -126,7 +130,7 @@
             </tbody>
         </table>
     {% else %}
-        <i>Personne n'a encore gracié cette série d'un petit mot :( <a href="{{ path('comments_new') }}">Soyez le premier</a></i>
+        <i>Personne n'a encore gratifié cette série d'un petit mot :( <a href="{{ path('comments_new') }}">Soyez le premier</a></i>
     {% endif %}
 
 
