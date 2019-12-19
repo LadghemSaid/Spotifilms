@@ -36,6 +36,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    public function findAllSeenEpisodes(User $user){
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.Episodes', 'e')
+            ->setParameter('user',$user)
+            ->where('u =  :user')
+            ->orderBy('e.Series', 'ASC')
+            ->addOrderBy('e.number', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAllSeenSeries(User $user){
+        return $this->createQueryBuilder('u')
+            ->setParameter('user' , $user)
+            ->where('u = :user')
+            ->innerJoin('u.Episodes','e')
+            ->innerJoin('e.Series', 's')
+            ->andWhere('e.Series = s')
+            ->getQuery()
+            ->getResult();
+
+    }
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
