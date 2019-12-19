@@ -82,6 +82,37 @@
                     lentils, half as much more than the original weight of the pulse; not quite as much could be poured off
                     the others.</p>
                 <h1>Episodes </h1>
+                <table class="table">
+                    <thead>
+                    <tr>
+
+                        <th>Nombre de visionnage entier</th>
+                        <th>Durée de la série (en h)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+{#                        <td>#}
+{#                            {% set nbAvis = 0 %}#}
+{#                            {% for comment in comments %}#}
+{#                                {% set nbAvis = nbAvis + 1 %}#}
+{#                            {% endfor %}#}
+{#                            {{ nbAvis }}#}
+{#                        </td>#}
+                        <td>
+                            {% set nbVisio = 0 %}
+                            {{ nbVisio }}
+                        </td>
+                        <td>
+                            {% set duree = 0 %}
+                            {% for episode in episodes %}
+                                {% set duree = duree + (episode.duration/60)|round %}
+                            {% endfor %}
+                            {{ duree }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
                 <div class="seasons_series">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -259,41 +290,14 @@
                         {% endif %}
                     {% endfor %}
 
+                    {% if comments|length == 0 %}
+                    <h2>Aucun avis utilisateur</h2>
+                    {% endif %}
+
 
 
 
                 </section>
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Nombre d'avis</th>
-                        <th>Nombre de visionnage entier</th>
-                        <th>Durée de la série (en h)</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>
-                            {% set nbAvis = 0 %}
-                            {% for comment in comments %}
-                                {% set nbAvis = nbAvis + 1 %}
-                            {% endfor %}
-                            {{ nbAvis }}
-                        </td>
-                        <td>
-                            {% set nbVisio = 0 %}
-                            {{ nbVisio }}
-                        </td>
-                        <td>
-                            {% set duree = 0 %}
-                            {% for episode in episodes %}
-                                {% set duree = duree + (episode.duration/60)|round %}
-                            {% endfor %}
-                            {{ duree }}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
 
 
             </div>
