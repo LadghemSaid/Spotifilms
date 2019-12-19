@@ -81,6 +81,7 @@ class SeriesController extends AbstractController
     public function show(Series $series, CommentsRepository $commentsRepository, UserRepository $userRepository): Response
     {
         return $this->render('series/show.html.twig', [
+            'comments' => $commentsRepository,
             'series' => $series,
             'comments' => $commentsRepository->findAll(),
         ]);
@@ -105,6 +106,8 @@ class SeriesController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
 
     /**
      * @Route("/{id}", name="series_delete", methods={"DELETE"})
