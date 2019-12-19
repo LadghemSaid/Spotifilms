@@ -47,4 +47,27 @@
     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
 
     {{ include('user/_delete_form.html.twig') }}
+    <h2>Commentaires</h2>
+    {% if comments != null %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Series</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>{{ comment.id }}</td>
+                        <td>{{ comment.Series }}</td>
+                        <td>{{ comment.content }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <i>Cet utiilsateur n'a pas encore écrit de commentaire</i>
+    {% endif %}
 {% endblock %}
