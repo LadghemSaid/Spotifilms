@@ -9,7 +9,7 @@
     <!-- Landing page -->
     <header class="showcase">
         <div class="showcase-top">
-            <a href="#">
+            <a href="/">
                 <img src="/images/Logo.png" alt=""/>
             </a>
             {% if is_granted('ROLE_USER') %}
@@ -26,14 +26,14 @@
         <div class="showcase-content">
             <h1>Vous cherchez ? <br> Nous avons !</h1>
             <p>Ne perdez pas des heures à chercher la serie qu'il vous faut</p>
-            <a href="#" class="btn btn-xl"
+            <a href="#promotion" class="btn btn-xl"
             >Découvrir <i class="fa fa-chevron-right btn-icon"></i
                 ></a>
         </div>
     </header>
 
     <!--Film à la une-->
-    <div class="promotion-carousel">
+    <div class="promotion-carousel" id="promotion">
         <div class="promotions">
             <div>
                 <div class="promotion" id="section1"
@@ -44,12 +44,12 @@
                             <span class="dash"></span>
                             <span class="promo-flag">Nous vous recommandons </span>
                             <a href="#" class="copy">
-                                <div class="headline">Titre du film a la une</div>
-                                <p class="body long">Brief descriptions blabllblblblb</p>
+                                <div class="headline">{{series[0].name}}</div>
+                                <p class="body long">{{series[0].summary|raw}}</p>
                             </a>
                             <div class='rating-stars'>
-                                <div class="note"><span style="font-size: 5rem;">4.3</span><span
-                                            style="font-size: 3rem;">/</span><span style="font-size: 3rem;">5</span>
+                                <div class="note"><span style="font-size: 5rem;">{{series[0].score}}</span><span
+                                            style="font-size: 3rem;">/</span><span style="font-size: 3rem;">10</span>
                                 </div>
                                 <ul id='stars'>
                                     <li class='star' title='Poor' data-value='1'>
@@ -80,7 +80,7 @@
                                 <li><i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
                             </ul>
                             <div class="buttons">
-                                <a class="button sho-play-link" href="#"></span>Voir la fiche</a>
+                                <a class="button sho-play-link" href="{{ path('series_show',  {id: series[0].id}) }}"></span>Voir la fiche</a>
                             </div>
                         </div>
                     </div>
@@ -101,10 +101,10 @@
                <section>
 
                    <div class="card">
-                       <img src="https://images2.alphacoders.com/615/615331.jpg" alt=""  >
+                       <img src="{{ serie.image }}" alt=""  >
 
                        <div class="inner" style="display: flex;flex-direction: column;">
-                           <div class="header" style="top: -260px;">
+                           <div class="header" style="top: -560px;">
                                <h1>{{serie.name}}</h1>
                                <a href=""><i class="fa fa-bookmark bookmark" aria-hidden="true"></i></a>
                                <div class="stars">
@@ -118,13 +118,13 @@
                                </div>
                                <i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
                            </div>
-                           <div class="content" style="margin-top: -85px;
+                           <div class="content" style="margin-top: -305px;
 min-height: 170px;">
-                               <p>{{ serie.summary |length > 50 ?serie.summary|raw |slice(0, 50) ~ '...' : serie.summary |raw   }}</p>
+                               <p>{{ serie.summary | raw}}</p>
                                <a href="#"> {% for genre in serie.kinds   %} [ {{ genre }} ]  {% endfor %}</a>
                            </div>
                            <div class="btn_row">
-                               <a href="#">Voir<i class="fa fa-caret-right" aria-hidden="true"></i>
+                               <a href="{{ path('series_show',  {id: serie.id}) }}">Voir<i class="fa fa-caret-right" aria-hidden="true"></i>
                                </a>
                            </div>
                        </div>
