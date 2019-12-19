@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comments;
+use App\Entity\Series;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -18,12 +19,10 @@ class CommentsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comments::class);
     }
-
-    public function findAllByUser($user){
+    public function findAllCommentsBySerie(Series $series){
         return $this->createQueryBuilder('c')
-            ->setParameter('user', $user)
-            ->where('c.User = :user')
-            ->orderBy('c.Series','ASC')
+            ->setParameter('series', $series)
+            ->where('c.Series = :series')
             ->getQuery()
             ->getResult();
     }
