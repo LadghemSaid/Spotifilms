@@ -19,8 +19,9 @@
     </table>
 
     <a href="{{ path('kind_index') }}">back to list</a>
-
+    {% if is_granted('ROLE_ADMIN') == true %}
     <a href="{{ path('kind_edit', {'id': kind.id}) }}">edit</a>
 
     {{ include('kind/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

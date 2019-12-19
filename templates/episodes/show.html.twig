@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ episode.image }}</td>
+                <td><img src="{{ base_url~episode.image }}" /></td>
             </tr>
             <tr>
                 <th>Created_at</th>
@@ -50,9 +50,20 @@
         </tbody>
     </table>
 
-    <a href="{{ path('episodes_index') }}">back to list</a>
 
+    {% if  episode_precedent %}
+        <a href="{{ path('episodes_show', {'id': episode_precedent.id}) }}">Episode précédent</a>
+    {% endif %}
+
+    {% if episode_suivant %}
+        <a href="{{ path('episodes_show', {'id': episode_suivant.id}) }}">Episode Suivant</a>
+    {% endif %}
+
+    <br>
+    <a href="{{ path('episodes_index') }}">back to list</a>
+    {% if is_granted('ROLE_ADMIN') == true %}
     <a href="{{ path('episodes_edit', {'id': episode.id}) }}">edit</a>
 
     {{ include('episodes/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

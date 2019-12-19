@@ -11,11 +11,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(SeriesRepository $series_Repo)
+    public function index(SeriesRepository $seriesRepository)
     {
-$series =$series_Repo->findBy(array(), array('id' => 'DESC'),15);
+        $nb_series_affichage = 10;
+        $nb_series = $seriesRepository->findHowManySeries();
+        $offset = max(0, rand(0, $nb_series - $nb_series_affichage - 1));
+
         return $this->render('home/index.html.twig', [
-            "series" => $series
+            'series' => $seriesRepository->getRandomSeries($nb_series_affichage,$offset)
         ]);
     }
 }
