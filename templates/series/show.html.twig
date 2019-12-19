@@ -47,6 +47,20 @@
                 <th>Created_at</th>
                 <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            {% for comment in comments %}
+                {% if comment.Series.id == series.id %}
+                    {% for role in comment.User.roles %}
+                        {% if role == "ROLE_ADMIN" %}
+                            <tr>
+                                <th>Avis de la rédaction</th>
+                                <td>{{ comment.content }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+
+
         </tbody>
     </table>
 

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Series;
 use App\Form\SeriesType;
+use App\Repository\CommentsRepository;
 use App\Repository\SeriesRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +23,7 @@ class SeriesController extends AbstractController
     public function index(SeriesRepository $seriesRepository): Response
     {
         return $this->render('series/index.html.twig', [
-            'series' => $seriesRepository->findAll(),
+            'series' => $seriesRepository->findAll()
         ]);
     }
 
@@ -51,10 +53,11 @@ class SeriesController extends AbstractController
     /**
      * @Route("/{id}", name="series_show", methods={"GET"})
      */
-    public function show(Series $series): Response
+    public function show(Series $series, CommentsRepository $commentsRepository, UserRepository $userRepository): Response
     {
         return $this->render('series/show.html.twig', [
             'series' => $series,
+            'comments' => $commentsRepository->findAll(),
         ]);
     }
 
