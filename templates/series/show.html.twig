@@ -57,8 +57,12 @@
                             </tr>
                         {% endif %}
                     {% endfor %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td><a href="{{ path('comments_edit', {'id': comment.id}) }}">Edition de l'avis</a></td>
+                    {% endif %}
                 {% endif %}
             {% endfor %}
+
 
 
         </tbody>
