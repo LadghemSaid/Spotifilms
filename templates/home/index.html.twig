@@ -37,7 +37,9 @@
                 <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('series_show', {'id': series.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

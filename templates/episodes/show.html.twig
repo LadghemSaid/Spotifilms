@@ -61,8 +61,9 @@
 
     <br>
     <a href="{{ path('episodes_index') }}">back to list</a>
-
+    {% if is_granted('ROLE_ADMIN') == true %}
     <a href="{{ path('episodes_edit', {'id': episode.id}) }}">edit</a>
 
     {{ include('episodes/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}

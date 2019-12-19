@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Series;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -36,6 +37,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    public function findAllUsersWhoSawSerie(Series $series){
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.Episodes', 'e')
+            ->setParameter('serie', $series)
+            ->where('e.Series = : serie')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     public function findAllSeenEpisodes(User $user){
         return $this->createQueryBuilder('u')
             ->innerJoin('u.Episodes', 'e')
@@ -57,6 +68,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
 
     }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

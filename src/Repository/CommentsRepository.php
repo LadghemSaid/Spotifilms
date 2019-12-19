@@ -54,9 +54,8 @@ class CommentsRepository extends ServiceEntityRepository
 
     public function findAllByUser($user){
         return $this->createQueryBuilder('c')
-            ->setParameter('user', $user)
-            ->where('c.User = :user')
-            ->orderBy('c.Series','ASC')
+            ->setParameter('series', $series)
+            ->where('c.Series = :series')
             ->getQuery()
             ->getResult();
     }
