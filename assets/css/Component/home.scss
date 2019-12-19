@@ -55,6 +55,10 @@ a {
 
   .copy {
     display: block;
+    &:hover{
+      color: white;
+      text-decoration: none;
+    }
   }
 }
 

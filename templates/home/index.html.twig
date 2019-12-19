@@ -13,12 +13,12 @@
                 <img src="/images/Logo.png" alt=""/>
             </a>
             {% if is_granted('ROLE_USER') %}
-                <a href="#" class="btn btn-rounded" >Mon compte</a>
+                <a href="#" class="btn btn-rounded" style="margin-left: auto;">Mon compte</a>
                 <a class="btn btn-rounded" href="{{ path('app_logout') }}">Se déconnecter</a>
             {% else %}
-                <a class="btn btn-rounded" data-toggle="modal" data-target="#modalLoginForm"
+                <a class="btn btn-rounded"
                    href="{{ path('app_login') }}" style="margin-left:auto">Se connecter</a>
-                <a class="btn btn-rounded" data-target="#modalRegisterForm"
+                <a class="btn btn-rounded"
                    style="margin-right: 200px;" href="{{ path('app_register') }}">S'inscrire</a>
             {% endif %}
 
@@ -42,13 +42,15 @@
                     <div class="promo-detail cycle-overlay">
                         <div class="promo-text">
                             <span class="dash"></span>
-                            <span class="promo-flag">Nous vous recommandons </span>
-                            <a href="#" class="copy">
-                                <div class="headline">{{series[0].name}}</div>
-                                <p class="body long">{{series[0].summary|raw}}</p>
+                            <span class="promo-flag">A la une : </span>
+                            <a href="{{ path('series_show',  {id: series[0].id}) }}" class="copy">
+                                <div class="headline">{{ series[0].name }} <span
+                                            style="font-size: .7rem;">{% for genre in series[0].kinds %} [ {{ genre }} ]  {% endfor %}</span>
+                                </div>
+                                <p class="body long">{{ series[0].summary|raw }}</p>
                             </a>
                             <div class='rating-stars'>
-                                <div class="note"><span style="font-size: 5rem;">{{series[0].score}}</span><span
+                                <div class="note"><span style="font-size: 5rem;">{{ series[0].score }}</span><span
                                             style="font-size: 3rem;">/</span><span style="font-size: 3rem;">10</span>
                                 </div>
                                 <ul id='stars'>
@@ -80,7 +82,8 @@
                                 <li><i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
                             </ul>
                             <div class="buttons">
-                                <a class="button sho-play-link" href="{{ path('series_show',  {id: series[0].id}) }}"></span>Voir la fiche</a>
+                                <a class="button sho-play-link"
+                                   href="{{ path('series_show',  {id: series[0].id}) }}"></span>Voir la fiche</a>
                             </div>
                         </div>
                     </div>
@@ -97,47 +100,70 @@
 
         <div class="carousel_you_may_like">
 
-           {% for serie in series %}
-               <section>
+            {% for serie in series %}
+                <section class="carousel_cards">
 
-                   <div class="card">
-                       <img src="{{ serie.image }}" alt=""  >
+                    <div class="card">
+                        <img src="{{ serie.image }}" alt="">
 
-                       <div class="inner" style="display: flex;flex-direction: column;">
-                           <div class="header" style="top: -560px;">
-                               <h1>{{serie.name}}</h1>
-                               <a href=""><i class="fa fa-bookmark bookmark" aria-hidden="true"></i></a>
-                               <div class="stars">
-                                   <i class="fa fa-star" aria-hidden="true"></i>
-                                   <i class="fa fa-star" aria-hidden="true"></i>
-                                   <i class="fa fa-star" aria-hidden="true"></i>
-                                   <i class="fa fa-star" aria-hidden="true"></i>
-                                   <i class="fa fa-star-half" aria-hidden="true"></i>
-                                   <span style="margin-left: auto">4.5/5</span>
+                        <div class="inner" style="display: flex;flex-direction: column;">
+                            <div class="header" style="top: -565px;">
+                                <h1>{{ serie.name }}</h1>
+                                <a href=""><i class="fa fa-bookmark bookmark" aria-hidden="true"></i></a>
+                                <div class="stars stars_cards" data-score="{{  serie.score }}">
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <i class="fa fa-star color-grey" aria-hidden="true"></i>
+                                    <span style="margin-left: auto"> {{ serie.score }}/10</span>
 
-                               </div>
-                               <i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
-                           </div>
-                           <div class="content" style="margin-top: -305px;
+                                </div>
+                                <i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
+                            </div>
+
+                            <div class="content" style="margin-top: -305px;
 min-height: 170px;">
-                               <p>{{ serie.summary | raw}}</p>
-                               <a href="#"> {% for genre in serie.kinds   %} [ {{ genre }} ]  {% endfor %}</a>
-                           </div>
-                           <div class="btn_row">
-                               <a href="{{ path('series_show',  {id: serie.id}) }}">Voir<i class="fa fa-caret-right" aria-hidden="true"></i>
-                               </a>
-                           </div>
-                       </div>
-                       <!-- the trailer -->
+                                <div class="btn_row">
+                                    <a href="{{ path('series_show',  {id: serie.id}) }}">Voir<i
+                                                class="fa fa-caret-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                                <a href="#"> {% for genre in serie.kinds %} [ {{ genre }} ]  {% endfor %}</a>
+                                {{ serie.summary | raw }}
+                            </div>
+
+                        </div>
+                        <!-- the trailer -->
 
 
-                   </div>
+                    </div>
 
-                   <div class="btn_row_next_prev">
-                   </div>
-               </section>
+                    <div class="btn_row_next_prev">
+                    </div>
+                </section>
             {% endfor %}
         </div>
     </div>
 
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            let ratings = $('.stars_cards');
+            Object.keys(ratings).forEach((rate,i)=>{
+                console.log(rate)
+                let score = rate.dataset.score;
+                if(score > 0 && score < 2){
+                    console.log(rate.children());
+
+                }
+            })
+        })
+    </script>
 {% endblock %}
