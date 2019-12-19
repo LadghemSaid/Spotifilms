@@ -82,6 +82,37 @@
                     lentils, half as much more than the original weight of the pulse; not quite as much could be poured off
                     the others.</p>
                 <h1>Episodes </h1>
+                <table class="table">
+                    <thead>
+                    <tr>
+
+                        <th>Nombre de visionnage entier</th>
+                        <th>Durée de la série (en h)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+{#                        <td>#}
+{#                            {% set nbAvis = 0 %}#}
+{#                            {% for comment in comments %}#}
+{#                                {% set nbAvis = nbAvis + 1 %}#}
+{#                            {% endfor %}#}
+{#                            {{ nbAvis }}#}
+{#                        </td>#}
+                        <td>
+                            {% set nbVisio = 0 %}
+                            {{ nbVisio }}
+                        </td>
+                        <td>
+                            {% set duree = 0 %}
+                            {% for episode in episodes %}
+                                {% set duree = duree + (episode.duration/60)|round %}
+                            {% endfor %}
+                            {{ duree }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
 
                 <div class="seasons_series">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -231,65 +262,44 @@
                 </section>
                 <section class="avis_user">
                     <h1>Critiques Spectateurs</h1>
-                    <div class="critique">
-                        <div class="infos">
-                            <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="" class="profile_pic">
-                            <span>John Doe</span>
-                            <span><strong>15</strong> avis</span>
-                        </div>
-                        <div class="text_critique">
-                            <span>publié il y a <strong>2 jours</strong></span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, doloremque error labore laborum
-                                libero similique vero! Explicabo incidunt magni mollitia reiciendis rem soluta? Accusamus
-                                amet doloribus eveniet minus ut veniam!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="critique">
-                        <div class="infos">
-                            <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="" class="profile_pic">
-                            <span>John Doe</span>
-                            <span><strong>15</strong> avis</span>
-                        </div>
-                        <div class="text_critique">
-                            <span>publié il y a <strong>2 jours</strong></span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, doloremque error labore laborum
-                                libero similique vero! Explicabo incidunt magni mollitia reiciendis rem soluta? Accusamus
-                                amet doloribus eveniet minus ut veniam!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="critique">
-                        <div class="infos">
-                            <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="" class="profile_pic">
-                            <span>John Doe</span>
-                            <span><strong>15</strong> avis</span>
-                        </div>
-                        <div class="text_critique">
-                            <span>publié il y a <strong>2 jours</strong></span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, doloremque error labore laborum
-                                libero similique vero! Explicabo incidunt magni mollitia reiciendis rem soluta? Accusamus
-                                amet doloribus eveniet minus ut veniam!
-                            </p>
-                        </div>
-                    </div>
-                    <div class="critique">
-                        <div class="infos">
-                            <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="" class="profile_pic">
-                            <span>John Doe</span>
-                            <span><strong>15</strong> avis</span>
-                        </div>
-                        <div class="text_critique">
-                            <span>publié il y a <strong>2 jours</strong></span>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, doloremque error labore laborum
-                                libero similique vero! Explicabo incidunt magni mollitia reiciendis rem soluta? Accusamus
-                                amet doloribus eveniet minus ut veniam!
-                            </p>
-                        </div>
-                    </div>
+                    {% for comment in comments %}
+                        {% if comment.Series.id == series.id %}
+                            {% for role in comment.User.roles %}
+                                {% if role == "ROLE_ADMIN" %}
+                                    <tr>
+                                        <th>Avis de la rédaction</th>
+                                        <td>{{ comment.content }}</td>
+                                    </tr>
+                                {% endif %}
+                                <div class="critique">
+                                    <div class="infos">
+                                        <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="" class="profile_pic">
+                                        <span>John Doe</span>
+                                        <span><strong>15</strong> avis</span>
+                                    </div>
+                                    <div class="text_critique">
+                                        <span>publié il y a <strong>2 jours</strong></span>
+                                        <p>{{ comment.content }}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td><a href="{{ path('comments_edit', {'id': comment.id}) }}">Edition de l'avis</a></td>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if comments|length == 0 %}
+                    <h2>Aucun avis utilisateur</h2>
+                    {% endif %}
+
+
 
 
                 </section>
+
+
             </div>
 
         </article>
