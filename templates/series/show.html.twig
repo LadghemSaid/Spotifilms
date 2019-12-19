@@ -67,10 +67,67 @@
 
         </tbody>
     </table>
-
+    <h2>Potites Stats</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre d'avis</th>
+                <th>Nombre de visionnage entier</th>
+                <th>Durée de la série (en h)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {% set nbAvis = 0 %}
+                    {% for comment in comments %}
+                        {% set nbAvis = nbAvis + 1 %}
+                    {% endfor %}
+                    {{ nbAvis }}
+                </td>
+                <td>
+                    {% set nbVisio = 0 %}
+                    {{ nbVisio }}
+                </td>
+                <td>
+                    {% set duree = 0 %}
+                    {% for episode in episodes %}
+                        {% set duree = duree + (episode.duration/60)|round %}
+                    {% endfor %}
+                    {{ duree }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <a href="{{ path('series_index') }}">back to list</a>
 
     <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
 
     {{ include('series/_delete_form.html.twig') }}
+
+    <h2>Potits avis</h2>
+    {% if comments != null %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Series</th>
+                <th>Review</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.Series }}</td>
+                    <td>{{ comment.content }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <i>Personne n'a encore gracié cette série d'un petit mot :( <a href="{{ path('comments_new') }}">Soyez le premier</a></i>
+    {% endif %}
+
+
 {% endblock %}
