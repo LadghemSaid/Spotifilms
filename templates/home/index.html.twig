@@ -1,36 +1,143 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home Page !{% endblock %}
+{% block title %}Accueil S'poeti Films!{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="text-primary">Hello Guys SUP ?</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="bg-secondary">Run : yarn run encore dev ( for dev )</h2>
-            <h2 class="bg-primary">Run : yarn run encore production ( for production )</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <h4>Euh comment je peux upload un fichier ?
-            </h4>
-        </div>
-        <div class="col-sm-3">
-            <a target="_blank" href="https://symfony.com/doc/current/controller/upload_file.html">
-                <img src="{{ asset(base_url~'/images/users/tigrou.gif') }}"/>
+
+
+
+    <!-- Landing page -->
+    <header class="showcase">
+        <div class="showcase-top">
+            <a href="#">
+                <img src="/images/Logo.png" alt=""/>
             </a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="#" class="btn btn-rounded" >Mon compte</a>
+                <a class="btn btn-rounded" href="{{ path('app_logout') }}">Se déconnecter</a>
+            {% else %}
+                <a class="btn btn-rounded" data-toggle="modal" data-target="#modalLoginForm"
+                   href="{{ path('app_login') }}" style="margin-left:auto">Se connecter</a>
+                <a class="btn btn-rounded" data-target="#modalRegisterForm"
+                   style="margin-right: 200px;" href="{{ path('app_register') }}">S'inscrire</a>
+            {% endif %}
+
         </div>
-        <div class="col-sm-6">
-            <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover Title"
-                    data-content="And here's some amazing content. It's very Attractive. Right?">
-                Ah Ah Ah
-            </button>
+        <div class="showcase-content">
+            <h1>Vous cherchez ? <br> Nous avons !</h1>
+            <p>Ne perdez pas des heures à chercher la serie qu'il vous faut</p>
+            <a href="#" class="btn btn-xl"
+            >Découvrir <i class="fa fa-chevron-right btn-icon"></i
+                ></a>
+        </div>
+    </header>
+
+    <!--Film à la une-->
+    <div class="promotion-carousel">
+        <div class="promotions">
+            <div>
+                <div class="promotion" id="section1"
+                     style="background-image: url(https://picsum.photos/1440/900?image=319)">
+                    <div class="shade"></div>
+                    <div class="promo-detail cycle-overlay">
+                        <div class="promo-text">
+                            <span class="dash"></span>
+                            <span class="promo-flag">Nous vous recommandons </span>
+                            <a href="#" class="copy">
+                                <div class="headline">Titre du film a la une</div>
+                                <p class="body long">Brief descriptions blabllblblblb</p>
+                            </a>
+                            <div class='rating-stars'>
+                                <div class="note"><span style="font-size: 5rem;">4.3</span><span
+                                            style="font-size: 3rem;">/</span><span style="font-size: 3rem;">5</span>
+                                </div>
+                                <ul id='stars'>
+                                    <li class='star' title='Poor' data-value='1'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Fair' data-value='2'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Good' data-value='3'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Excellent' data-value='4'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='WOW!!!' data-value='5'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <ul>
+                                <li><i class="fa fa-assistive-listening-systems"></i> Disponible en audio descriptions
+                                </li>
+                                <li><i class="fa fa-assistive-listening-systems"></i> <strong>3</strong> saisons des
+                                    heures
+                                    de <strong>suspense</strong> en vu !
+                                </li>
+                                <li><i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
+                            </ul>
+                            <div class="buttons">
+                                <a class="button sho-play-link" href="#"></span>Voir la fiche</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
+
+    <!--Carousel vous aimeriez peut etre-->
+    <div>
+        <span class="title_section">Nous vous recommandons </span>
+
+
+        <div class="carousel_you_may_like">
+
+           {% for serie in series %}
+               <section>
+
+                   <div class="card">
+                       <img src="https://images2.alphacoders.com/615/615331.jpg" alt=""  >
+
+                       <div class="inner" style="display: flex;flex-direction: column;">
+                           <div class="header" style="top: -260px;">
+                               <h1>{{serie.name}}</h1>
+                               <a href=""><i class="fa fa-bookmark bookmark" aria-hidden="true"></i></a>
+                               <div class="stars">
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star-half" aria-hidden="true"></i>
+                                   <span style="margin-left: auto">4.5/5</span>
+
+                               </div>
+                               <i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
+                           </div>
+                           <div class="content" style="margin-top: -85px;
+min-height: 170px;">
+                               <p>{{ serie.summary |length > 50 ?serie.summary|raw |slice(0, 50) ~ '...' : serie.summary |raw   }}</p>
+                               <a href="#"> {% for genre in serie.kinds   %} [ {{ genre }} ]  {% endfor %}</a>
+                           </div>
+                           <div class="btn_row">
+                               <a href="#">Voir<i class="fa fa-caret-right" aria-hidden="true"></i>
+                               </a>
+                           </div>
+                       </div>
+                       <!-- the trailer -->
+
+
+                   </div>
+
+                   <div class="btn_row_next_prev">
+                   </div>
+               </section>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

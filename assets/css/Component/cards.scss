@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900');
+
+$red: #E94438;
+
+
+.card::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 500px;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  border-radius: 10px;
+}
+
+.card {
+  position: relative;
+  margin: 100px auto 20px;
+  width: 400px;
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: 0 6px 40px rgba(#5A667F, .3);
+
+  .inner {
+    font-family: 'Lato', open-sans;
+
+    .header {
+      position: relative;
+      border-radius: 10px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.6);
+
+      h1 {
+        display: inline;
+      }
+
+      .bookmark {
+        float: right;
+        font-size: 2rem;
+        color: white;
+
+        &:hover {
+          color: red;
+          font-size: 2.5rem;
+          transition: all .3s ease-in-out;
+        }
+      }
+
+      .fa-info-circle {
+        z-index: 999;
+        color: #fff;
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        cursor: pointer;
+      }
+
+      h1 {
+        color: #fff;
+        margin: 10px 0;
+      }
+
+      .stars {
+        margin: 0;
+        color: $red;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .content {
+      position: relative;
+      padding: 0 10px;
+      margin-top: 175px;
+
+      p {
+        min-width: 90%;
+        font-weight: 300;
+        width: 90%;
+        color: #fff;
+        font-size: 14px;
+        margin: 8px 0;
+      }
+
+      a {
+        cursor: pointer;
+        color: $red;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 12px;
+      }
+    }
+
+    .btn_row {
+      position: relative;
+      text-align: center;
+      padding: 40px;
+
+      a {
+        background: $red;
+        padding: 10px 50px;
+        border-radius: 4px;
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 6px 40px rgba($red, .7);
+        cursor: pointer;
+        font-size: 16px;
+        transition: .3s ease-in;
+
+        i {
+          color: #fff;
+          font-size: 14px;
+          margin-left: 10px;
+          font-weight: 900;
+        }
+
+        &:hover {
+          background: lighten($red, 5);
+          cursor: pointer;
+        }
+      }
+
+    }
+  }
+}
+
+
+.btn_row_next_prev {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 100px;
+}
