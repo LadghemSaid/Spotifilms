@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Series;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -34,6 +35,38 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newEncodedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    public function findAllUsersWhoSawSerie(Series $series){
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.Episodes', 'e')
+            ->setParameter('serie', $series)
+            ->where('e.Series = : serie')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findAllSeenEpisodes(User $user){
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.Episodes', 'e')
+            ->setParameter('user',$user)
+            ->where('u =  :user')
+            ->orderBy('e.Series', 'ASC')
+            ->addOrderBy('e.number', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAllSeenSeries(User $user){
+        return $this->createQueryBuilder('u')
+            ->setParameter('user' , $user)
+            ->where('u = :user')
+            ->innerJoin('u.Episodes','e')
+            ->innerJoin('e.Series', 's')
+            ->andWhere('e.Series = s')
+            ->getQuery()
+            ->getResult();
+
     }
 
     // /**

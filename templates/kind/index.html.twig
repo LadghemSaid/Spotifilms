@@ -20,7 +20,9 @@
                 <td>{{ kind.name }}</td>
                 <td>
                     <a href="{{ path('kind_show', {'id': kind.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') == true %}
                     <a href="{{ path('kind_edit', {'id': kind.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -30,6 +32,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') == true %}
     <a href="{{ path('kind_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}
