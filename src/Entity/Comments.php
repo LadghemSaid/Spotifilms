@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentsRepository")
  */
-class Comments
+class   Comments
 {
     /**
      * @ORM\Id()
@@ -39,6 +39,8 @@ class Comments
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     *
+     *
      */
     private $User;
 

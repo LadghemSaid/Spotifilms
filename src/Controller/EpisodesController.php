@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/episodes")
@@ -26,6 +27,8 @@ class EpisodesController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN", message="This page is only for administrators!")
+     *
      * @Route("/new", name="episodes_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -51,14 +54,18 @@ class EpisodesController extends AbstractController
     /**
      * @Route("/{id}", name="episodes_show", methods={"GET"})
      */
-    public function show(Episodes $episode): Response
+    public function show(Episodes $episode, EpisodesRepository $episodesRepository): Response
     {
         return $this->render('episodes/show.html.twig', [
             'episode' => $episode,
+            'episode_suivant' => $episodesRepository->findOneBy(['id' => $episode->getNumber()+1]),
+            'episode_precedent' => $episodesRepository->findOneBy(['id' => $episode->getNumber()-1])
         ]);
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN", message="This page is only for administrators!")
+     *
      * @Route("/{id}/edit", name="episodes_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Episodes $episode): Response
@@ -79,6 +86,8 @@ class EpisodesController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN", message="This page is only for administrators!")
+     *
      * @Route("/{id}", name="episodes_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Episodes $episode): Response

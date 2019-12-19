@@ -36,7 +36,9 @@
                 <td>{{ episode.createdAt ? episode.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('episodes_show', {'id': episode.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') == true %}
                     <a href="{{ path('episodes_edit', {'id': episode.id}) }}">edit</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -46,6 +48,7 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if is_granted('ROLE_ADMIN') == true %}
     <a href="{{ path('episodes_new') }}">Create new</a>
+    {% endif %}
 {% endblock %}

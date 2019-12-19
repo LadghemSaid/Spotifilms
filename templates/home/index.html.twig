@@ -4,33 +4,50 @@
 
 {% block body %}
 <div class="container">
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="text-primary">Hello Guys SUP ?</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <h2 class="bg-secondary">Run : yarn run encore dev ( for dev )</h2>
-            <h2 class="bg-primary">Run : yarn run encore production ( for production )</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3">
-            <h4>Euh comment je peux upload un fichier ?                Ici!
-            </h4>
-        </div>
-        <div class="col-sm-3">
-            <a target="_blank" href="https://symfony.com/doc/current/controller/upload_file.html">
-                <img src="{{ asset(base_url~'/images/users/tigrou.gif') }}"/>
-            </a>
-        </div>
-        <div class="col-sm-6">
-            <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover Title"
-                    data-content="And here's some amazing content. It's very Attractive. Right?">
-                Ah Ah Ah
-            </button>
-        </div>
-    </div>
+    <h1>Series index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Summary</th>
+            <th>Language</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Premiere</th>
+            <th>Url</th>
+            <th>Image</th>
+            <th>Created_at</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for series in series %}
+            <tr>
+                <td>{{ series.id }}</td>
+                <td>{{ series.name }}</td>
+                <td>{{ series.summary|raw }}</td>
+                <td>{{ series.language }}</td>
+                <td>{{ series.score }}</td>
+                <td>{{ series.status }}</td>
+                <td>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</td>
+                <td>{{ series.url }}</td>
+                <td><img src="{{ base_url~series.image }}" /></td>
+                <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('series_show', {'id': series.id}) }}">show</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

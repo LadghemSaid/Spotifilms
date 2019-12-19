@@ -47,4 +47,20 @@ class SeriesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findHowManySeries() {
+        return $this->createQueryBuilder('s')
+            ->select('count(s.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getRandomSeries($nombre_series, $offset) {
+        return $this->createQueryBuilder('s')
+            ->distinct('s.id')
+            ->setMaxResults($nombre_series)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getResult();
+    }
 }
