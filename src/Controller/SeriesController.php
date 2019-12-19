@@ -8,6 +8,8 @@ use App\Repository\CommentsRepository;
 use App\Repository\SeriesRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,6 +39,29 @@ class SeriesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $file = $form['url']->getData();
+
+            $file = $form['avatar']->getData();
+
+            if($file !== null && $file instanceof UploadedFile) {
+
+                $fileInfo = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+                try {
+                    $fileName = \uniqid().\urldecode($fileInfo).'.'.$file->guessExtension();
+                    $file->move(
+                        $this->getParameter('series_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e){
+                    $this->addFlash('danger', 'Error on FileUpload : '.$e->getMessage());
+
+                    return $this->redirectToRoute('series_index');
+                }
+                $series->setUrl($fileName);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($series);
             $entityManager->flush();
