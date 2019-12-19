@@ -1,53 +1,143 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home Page !{% endblock %}
+{% block title %}Accueil S'poeti Films!{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Series index</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Summary</th>
-            <th>Language</th>
-            <th>Score</th>
-            <th>Status</th>
-            <th>Premiere</th>
-            <th>Url</th>
-            <th>Image</th>
-            <th>Created_at</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for series in series %}
-            <tr>
-                <td>{{ series.id }}</td>
-                <td>{{ series.name }}</td>
-                <td>{{ series.summary|raw }}</td>
-                <td>{{ series.language }}</td>
-                <td>{{ series.score }}</td>
-                <td>{{ series.status }}</td>
-                <td>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</td>
-                <td>{{ series.url }}</td>
-                <td><img src="{{ base_url~series.image }}" /></td>
-                <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('series_show', {'id': series.id}) }}">show</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
-                    {% endif %}
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+
+
+    <!-- Landing page -->
+    <header class="showcase">
+        <div class="showcase-top">
+            <a href="/">
+                <img src="/images/Logo.png" alt=""/>
+            </a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="#" class="btn btn-rounded" >Mon compte</a>
+                <a class="btn btn-rounded" href="{{ path('app_logout') }}">Se déconnecter</a>
+            {% else %}
+                <a class="btn btn-rounded" data-toggle="modal" data-target="#modalLoginForm"
+                   href="{{ path('app_login') }}" style="margin-left:auto">Se connecter</a>
+                <a class="btn btn-rounded" data-target="#modalRegisterForm"
+                   style="margin-right: 200px;" href="{{ path('app_register') }}">S'inscrire</a>
+            {% endif %}
+
+        </div>
+        <div class="showcase-content">
+            <h1>Vous cherchez ? <br> Nous avons !</h1>
+            <p>Ne perdez pas des heures à chercher la serie qu'il vous faut</p>
+            <a href="#promotion" class="btn btn-xl"
+            >Découvrir <i class="fa fa-chevron-right btn-icon"></i
+                ></a>
+        </div>
+    </header>
+
+    <!--Film à la une-->
+    <div class="promotion-carousel" id="promotion">
+        <div class="promotions">
+            <div>
+                <div class="promotion" id="section1"
+                     style="background-image: url(https://picsum.photos/1440/900?image=319)">
+                    <div class="shade"></div>
+                    <div class="promo-detail cycle-overlay">
+                        <div class="promo-text">
+                            <span class="dash"></span>
+                            <span class="promo-flag">Nous vous recommandons </span>
+                            <a href="#" class="copy">
+                                <div class="headline">{{series[0].name}}</div>
+                                <p class="body long">{{series[0].summary|raw}}</p>
+                            </a>
+                            <div class='rating-stars'>
+                                <div class="note"><span style="font-size: 5rem;">{{series[0].score}}</span><span
+                                            style="font-size: 3rem;">/</span><span style="font-size: 3rem;">10</span>
+                                </div>
+                                <ul id='stars'>
+                                    <li class='star' title='Poor' data-value='1'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Fair' data-value='2'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Good' data-value='3'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='Excellent' data-value='4'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                    <li class='star' title='WOW!!!' data-value='5'>
+                                        <i class='fa fa-star fa-fw'></i>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <ul>
+                                <li><i class="fa fa-assistive-listening-systems"></i> Disponible en audio descriptions
+                                </li>
+                                <li><i class="fa fa-assistive-listening-systems"></i> <strong>3</strong> saisons des
+                                    heures
+                                    de <strong>suspense</strong> en vu !
+                                </li>
+                                <li><i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
+                            </ul>
+                            <div class="buttons">
+                                <a class="button sho-play-link" href="{{ path('series_show',  {id: series[0].id}) }}"></span>Voir la fiche</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--Carousel vous aimeriez peut etre-->
+    <div>
+        <span class="title_section">Nous vous recommandons </span>
+
+
+        <div class="carousel_you_may_like">
+
+           {% for serie in series %}
+               <section>
+
+                   <div class="card">
+                       <img src="{{ serie.image }}" alt=""  >
+
+                       <div class="inner" style="display: flex;flex-direction: column;">
+                           <div class="header" style="top: -560px;">
+                               <h1>{{serie.name}}</h1>
+                               <a href=""><i class="fa fa-bookmark bookmark" aria-hidden="true"></i></a>
+                               <div class="stars">
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star" aria-hidden="true"></i>
+                                   <i class="fa fa-star-half" aria-hidden="true"></i>
+                                   <span style="margin-left: auto">4.5/5</span>
+
+                               </div>
+                               <i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
+                           </div>
+                           <div class="content" style="margin-top: -305px;
+min-height: 170px;">
+                               <p>{{ serie.summary | raw}}</p>
+                               <a href="#"> {% for genre in serie.kinds   %} [ {{ genre }} ]  {% endfor %}</a>
+                           </div>
+                           <div class="btn_row">
+                               <a href="{{ path('series_show',  {id: serie.id}) }}">Voir<i class="fa fa-caret-right" aria-hidden="true"></i>
+                               </a>
+                           </div>
+                       </div>
+                       <!-- the trailer -->
+
+
+                   </div>
+
+                   <div class="btn_row_next_prev">
+                   </div>
+               </section>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

@@ -2,7 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <title>{% block title %}S'poeti Films!{% endblock %}</title>
+
+
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
             {{ encore_entry_link_tags('app') }}
@@ -19,8 +26,277 @@
             {% include 'header.html.twig' %}
         {% endblock %}
         {% block body %}{% endblock %}
+        <footer class="footer">
+            <p>Marathon du web 2019</p>
+            <div class="footer-cols">
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Investor Relations</a></li>
+                    <li><a href="#">Corporate Information</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Terms Of Use</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Mon compte</a></li>
+                    <li><a href="#">Partenariat</a></li>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Media Center</a></li>
+                    <li><a href="#">Cookie Preferences</a></li>
+                    <li><a href="#">Legal Notices</a></li>
+                </ul>
+            </div>
+
+        </footer>
+
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                crossorigin="anonymous"></script>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"
+                integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"
+                crossorigin="anonymous" defer></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
+        <script>
+            //Carousel
+
+            $(document).ready(function () {
+                const ele = '.promotion-carousel';
+                const $window = $(window);
+                const viewportHeight = $window.height();
+
+                let ui = {
+                    promo: ele + ' .promotion',
+                    promoText: ele + ' .promo-text',
+                    navigationItems: '.navigation a'
+                };
+
+                function isOnScreen(el) {
+                    const viewport = {
+                        top: $window.scrollTop()
+                    };
+
+                    viewport.bottom = viewport.top + viewportHeight;
+
+                    const bounds = el.offset();
+                    bounds.bottom = el.offset().top + el.outerHeight();
+
+                    return (!(viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+                }
+
+                class ScrollEvents {
+
+                    run() {
+                        const $promo = $('.promotion');
+                        const $promoText = $('.promo-text');
+
+                        function smoothScroll(target) {
+                            $('body, html').animate({'scrollTop': target.offset().top}, 600);
+                        }
+
+                        $(ui.navigationItems).on('click', e => {
+                            e.preventDefault();
+                            smoothScroll($(e.currentTarget.hash));
+                        });
+
+                        $window.on('scroll', () => {
+
+                            $(ui.promo).toArray().forEach(el => {
+                                const $el = $(el);
+                                if (isOnScreen($el)) {
+                                    this.scrolly($el);
+                                }
+                            });
+                            this.updateNavigation();
+                            this.fadeAtTop($(ui.promoText));
+                        });
+
+                        this.updateNavigation();
+                    }
+
+                    scrolly(el) {
+                        const topOffset = el.offset().top;
+                        const height = el.height();
+                        let scrollTop = $window.scrollTop();
+                        const maxPixels = height / 4;
+                        const percentageScrolled = (scrollTop - topOffset) / height;
+                        let backgroundOffset = maxPixels * percentageScrolled;
+
+                        backgroundOffset = Math.round(Math.min(maxPixels, Math.max(0, backgroundOffset)));
+
+                        el.css(`background-position`, `right 0px top ${backgroundOffset}px`);
+                    }
+
+                    fadeAtTop(el) {
+                        const startPos = 0.25;
+
+                        el.toArray().forEach(el => {
+                            const $el = $(el);
+                            let position = $el.offset().top - $window.scrollTop() + viewportHeight / 6;
+                            let opacity = position < viewportHeight * startPos ? position / (viewportHeight * startPos) * 1 : 1;
+
+                            $el.css('opacity', opacity);
+                        });
+                    }
+
+                    updateNavigation() {
+                        $(ui.promo).toArray().forEach((el) => {
+                            let $el = $(el);
+                            let activeSection = $(`.navigation a[href="#${$el.attr('id')}"]`).data('number') - 1;
+
+                            if (($el.offset().top - $window.height() / 2 < $window.scrollTop()) && ($el.offset().top + $el.height() - $window.height() / 2 > $window.scrollTop())) {
+                                $(ui.navigationItems).eq(activeSection).addClass('active');
+                            } else {
+                                $(ui.navigationItems).eq(activeSection).removeClass('active');
+                            }
+                        });
+                    }
+                };
+
+                const scrollEvents = new ScrollEvents();
+
+                scrollEvents.run();
+            });
+
+        </script>
+
+        <script>
+            //slick carousel vous aimerz surment
+            $(document).ready(function () {
+                $('.carousel_you_may_like').slick({
+                    arrows:false,
+                    infinite: false,
+                    slidesToShow: 3,
+                    slidesToScroll: 1
+                });
+            });
+        </script>
+
+        <script>
+            //menuCircle
+            $('document').ready(function () {
+                var trigger = $('.circle_home_button-button');
+                var menu = $('#hamburger'),
+                    isClosed = true;
+
+                trigger.click(function () {
+                    burgerTime();
+                });
+
+                function burgerTime() {
+                    if (isClosed == true) {
+                        menu.removeClass('is-open');
+                        menu.addClass('is-closed');
+                        isClosed = false;
+                    } else {
+                        menu.removeClass('is-closed');
+                        menu.addClass('is-open');
+                        isClosed = true;
+                    }
+                }
+
+            });
+        </script>
+        <script>//Navbar appears
+            (function ($) {
+                $(document).ready(function () {
+
+                    // hide .navbar first
+                    $(".navbar").hide();
+
+                    // fade in .navbar
+                    $(function () {
+                        $(window).scroll(function () {
+                            // set distance user needs to scroll before we fadeIn navbar
+                            if ($(this).scrollTop() > 100) {
+                                $('.navbar').fadeIn();
+                            } else {
+                                $('.navbar').fadeOut();
+                            }
+                            if ($(this).scrollTop() > 300) {
+                                $('#circle_home_button').css('top', "100%");
+                            } else {
+                                $('#circle_home_button').css('top', "140%");
+                            }
+
+
+                        });
+
+
+                    });
+
+                });
+            }(jQuery));
+        </script>
+
+        <script>
+            //Rating stars
+            $(document).ready(function () {
+
+                /* 1. Visualizing things on Hover - See next part for action on click */
+                $('#stars li').on('mouseover', function () {
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                    // Now highlight all the stars that's not after the current hovered star
+                    $(this).parent().children('li.star').each(function (e) {
+                        if (e < onStar) {
+                            $(this).addClass('hover');
+                        } else {
+                            $(this).removeClass('hover');
+                        }
+                    });
+
+                }).on('mouseout', function () {
+                    $(this).parent().children('li.star').each(function (e) {
+                        $(this).removeClass('hover');
+                    });
+                });
+
+
+                /* 2. Action to perform on click */
+                $('#stars li').on('click', function () {
+                    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                    var stars = $(this).parent().children('li.star');
+
+                    for (i = 0; i < stars.length; i++) {
+                        $(stars[i]).removeClass('selected');
+                    }
+
+                    for (i = 0; i < onStar; i++) {
+                        $(stars[i]).addClass('selected');
+                    }
+
+                    // JUST RESPONSE (Not needed)
+                    var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                    var msg = "";
+                    if (ratingValue > 1) {
+                        msg = "Thanks! You rated this " + ratingValue + " stars.";
+                    } else {
+                        msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+                    }
+                    responseMessage(msg);
+
+                });
+
+
+            });
+
+
+            function responseMessage(msg) {
+                $('.success-box').fadeIn(200);
+                $('.success-box div.text-message').html("<span>" + msg + "</span>");
+            }
+        </script>
     </body>
 </html>

@@ -1,0 +1,38 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+  left: 0;
+  #navbar-list-2{
+    justify-content: space-between;
+  }
+.form-group{
+  margin-bottom: 0;
+  width: 50%;
+  margin-left: 20%;
+}
+  .navbar-nav {
+   // margin-left: auto;
+  }
+
+
+  /* Bootstrap 4 text input with search icon */
+
+  .has-search .form-control {
+    padding-left: 2.375rem;
+  }
+
+  .has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+  }
+
+}

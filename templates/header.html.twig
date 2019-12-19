@@ -1,44 +1,98 @@
+{% block header %}
+
+<!---- Navbar fixed -->
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            {% if is_granted('ROLE_USER') %}
-                <a class="btn btn-outline-success" href="{{ path('user_show', {'id': app.user.id}) }}" role="button">
-                    {{ app.user.username }}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        -ADMIN-
-                    {% endif %}
-                </a>
-            {% endif %}
+    <nav class="navbar navbar-dark bg-dark navbar-expand-sm">
+        <a class="navbar-brand" href="/">
+            <img src="/images/Logo.png" width="30" height="30" alt=""/>
+
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-2"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-list-2">
+            <div class="form-group has-search">
+                <span class="fa fa-search form-control-feedback"></span>
+                <input type="text" class="form-control" placeholder="Recherchez">
+            </div>
+
+            <ul class="navbar-nav">
+
+                {% if is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Mon compte</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                </li>
+                {% endif %}
+
+
+            </ul>
         </div>
-        <div class="col-sm-6 text-right">
-            {% if is_granted('ROLE_USER') %}
-                <a class="btn btn-outline-danger" href="{{ path('app_logout') }}" role="button">
-                    Disconnect
-                </a>
-            {% else %}
-                <a class="btn btn-primary" role="button" href="{{ path('app_login') }}">Log me</a>
-                <a class="btn btn-primary" role="button" href="{{ path('app_register') }}">S'inscrire</a>
-            {% endif %}
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-sm-2">
-            <a class="text-primary" href="{{ path('home') }}">Index</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="text-primary" href="{{ path('kind_index') }}">Kind</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="text-primary" href="{{ path('series_index') }}">Series</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="text-primary" href="{{ path('episodes_index') }}">Episodes</a>
-        </div>
-        <div class="col-sm-2">
-            <a class="text-primary" href="{{ path('user_index') }}">Users</a>
-        </div>
-    </div>
+    </nav>
+
 </div>
 
+<!--- Circle button --->
+<nav>
+
+    <ul id="circle_home_button" class="noselect">
+
+        <a class="circle_home_button-button fa fa-plus noselect" href="#circle_home_button" title="Show navigation"></a>
+        <a class="circle_home_button-button  fa fa-plus noselect" href="#0" title="Hide navigation"></a>
+
+        <li class="circle_home_button-item noselect">
+            <a href="#">
+                <img src="/images/heart.svg" class="img_logo_circle" alt=""/>
+            </a>
+        </li>
+        <li class="circle_home_button-item noselect">
+            <a href="#">
+                <img src="/images/compass-with-white-needles.svg" class="img_logo_circle" alt=""/>
+
+            </a>
+        </li>
+        <li class="circle_home_button-item noselect">
+            <a href="#">
+                <img src="/images/magnifying-glass.svg" class="img_logo_circle" alt=""/>
+
+            </a>
+        </li>
+        <li class="circle_home_button-item noselect">
+            <a href="#">
+                <img src="/images/playlist.svg" class="img_logo_circle" alt=""/>
+
+            </a>
+        </li>
+        <li>
+
+            <div id="hamburger" class="hamburglar is-open">
+                <div id="top"></div>
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                     y="0px" width="64px"
+                     height="64px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+    <path id="circle" fill="none" stroke-width="4" stroke-miterlimit="10" d="M16,32h32c0,0,11.723-0.306,10.75-11
+                                                                             c-0.25-2.75-1.644-4.971-2.869-7.151C50.728,7.08,42.767,2.569,33.733,2.054C33.159,2.033,32.599,2,32,2C15.432,2,2,15.432,2,32
+                                                                             c0,16.566,13.432,30,30,30c16.566,0,30-13.434,30-30C62,15.5,48.5,2,32,2S1.875,15.5,1.875,32"/>
+
+  </svg>
+                <div id="bottom"></div>
+            </div>
+        </li>
+    </ul>
+
+
+</nav>
+
+
+
+{% endblock %}
