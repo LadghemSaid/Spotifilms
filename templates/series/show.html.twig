@@ -7,62 +7,61 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ series.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ series.name }}</td>
-            </tr>
-            <tr>
-                <th>Summary</th>
-                <td>{{ series.summary }}</td>
-            </tr>
-            <tr>
-                <th>Language</th>
-                <td>{{ series.language }}</td>
-            </tr>
-            <tr>
-                <th>Score</th>
-                <td>{{ series.score }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ series.status }}</td>
-            </tr>
-            <tr>
-                <th>Premiere</th>
-                <td>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Url</th>
-                <td>{{ series.url }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ series.image }}</td>
-            </tr>
-            <tr>
-                <th>Created_at</th>
-                <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            {% for comment in comments %}
-                {% if comment.Series.id == series.id %}
-                    {% for role in comment.User.roles %}
-                        {% if role == "ROLE_ADMIN" %}
-                            <tr>
-                                <th>Avis de la rédaction</th>
-                                <td>{{ comment.content }}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <td><a href="{{ path('comments_edit', {'id': comment.id}) }}">Edition de l'avis</a></td>
+        <tr>
+            <th>Id</th>
+            <td>{{ series.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ series.name }}</td>
+        </tr>
+        <tr>
+            <th>Summary</th>
+            <td>{{ series.summary }}</td>
+        </tr>
+        <tr>
+            <th>Language</th>
+            <td>{{ series.language }}</td>
+        </tr>
+        <tr>
+            <th>Score</th>
+            <td>{{ series.score }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ series.status }}</td>
+        </tr>
+        <tr>
+            <th>Premiere</th>
+            <td>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Url</th>
+            <td>{{ series.url }}</td>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <td><img src="{{ base_url~series.image }}" /></td>
+        </tr>
+        <tr>
+            <th>Created_at</th>
+            <td>{{ series.createdAt ? series.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        {% for comment in comments %}
+            {% if comment.Series.id == series.id %}
+                {% for role in comment.User.roles %}
+                    {% if role == "ROLE_ADMIN" %}
+                        <tr>
+                            <th>Avis de la rédaction</th>
+                            <td>{{ comment.content }}</td>
+                        </tr>
                     {% endif %}
+                {% endfor %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td><a href="{{ path('comments_edit', {'id': comment.id}) }}">Edition de l'avis</a></td>
                 {% endif %}
-            {% endfor %}
-
+            {% endif %}
+        {% endfor %}
 
 
         </tbody>
@@ -70,33 +69,33 @@
     <h2>Potites Stats</h2>
     <table class="table">
         <thead>
-            <tr>
-                <th>Nombre d'avis</th>
-                <th>Nombre de visionnage entier</th>
-                <th>Durée de la série (en h)</th>
-            </tr>
+        <tr>
+            <th>Nombre d'avis</th>
+            <th>Nombre de visionnage entier</th>
+            <th>Durée de la série (en h)</th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    {% set nbAvis = 0 %}
-                    {% for comment in comments %}
-                        {% set nbAvis = nbAvis + 1 %}
-                    {% endfor %}
-                    {{ nbAvis }}
-                </td>
-                <td>
-                    {% set nbVisio = 0 %}
-                    {{ nbVisio }}
-                </td>
-                <td>
-                    {% set duree = 0 %}
-                    {% for episode in episodes %}
-                        {% set duree = duree + (episode.duration/60)|round %}
-                    {% endfor %}
-                    {{ duree }}
-                </td>
-            </tr>
+        <tr>
+            <td>
+                {% set nbAvis = 0 %}
+                {% for comment in comments %}
+                    {% set nbAvis = nbAvis + 1 %}
+                {% endfor %}
+                {{ nbAvis }}
+            </td>
+            <td>
+                {% set nbVisio = 0 %}
+                {{ nbVisio }}
+            </td>
+            <td>
+                {% set duree = 0 %}
+                {% for episode in episodes %}
+                    {% set duree = duree + (episode.duration/60)|round %}
+                {% endfor %}
+                {{ duree }}
+            </td>
+        </tr>
         </tbody>
     </table>
     <a href="{{ path('series_index') }}">back to list</a>
@@ -107,10 +106,11 @@
 
     <h2>Potits avis</h2>
     {% if comments != null %}
-        <a href="{{ path('comments_new') }}">Rajouter un potit mot de votre plume divine</a>
+        <a href="{{ path('comments_new', {"id": series.id}) }}">Rajouter un potit mot de votre plume divine</a>
+        <br>
         <a href="{{ path('series_show', {'id': series.id, 'order':'ASC'}) }}">Trier les series par avis positifs</a>
         <a href="{{ path('series_show', {'id': series.id, 'order':'DESC'}) }}">Trier les series par avis negatifs</a>
-        <h3 >Pourcentage des commentaires validés : {{ average_positive * 100 }}%</h3>
+        <h3>Pourcentage des commentaires validés : {{ average_positive * 100 }}%</h3>
         <table class="table">
             <thead>
             <tr>
@@ -130,7 +130,8 @@
             </tbody>
         </table>
     {% else %}
-        <i>Personne n'a encore gratifié cette série d'un petit mot :( <a href="{{ path('comments_new') }}">Soyez le premier</a></i>
+        <i>Personne n'a encore gratifié cette série d'un petit mot :( <a
+                    href="{{ path('comments_new', {"id": series.id}) }}">Soyez le premier</a></i>
     {% endif %}
 
 

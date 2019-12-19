@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comments;
+use App\Entity\Series;
 use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,12 +27,12 @@ class CommentsController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="comments_new", methods={"GET","POST"})
+     * @Route("/new/{id}", name="comments_new", methods={"GET","POST"}, defaults={"id":null})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Series $series = null): Response
     {
         $comment = new Comments();
-        $form = $this->createForm(CommentsType::class, $comment);
+        $form = $this->createForm(CommentsType::class, $comment, ['serie' => $series]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -39,7 +40,9 @@ class CommentsController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('comments_index');
+            return $this->redirectToRoute('series_show', [
+                'id' => $series->getId()
+            ]);
         }
 
         return $this->render('comments/new.html.twig', [
