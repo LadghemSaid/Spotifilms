@@ -1,11 +1,14 @@
 //------------Carousel------------------------------------
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,900');
 
-$red: #b10000;
-$redHover: #c00;
+$red:var(--primary-color);
+$redHover:var( --primary-color-hover);
 $white: #fff;
 $black: #000;
 
+.bg-dark {
+  background-color: var(--primary-color) !important;
+}
 body, html {
   border: 0;
   font-family: 'Roboto', Arial, sans-serif;
@@ -109,7 +112,7 @@ a {
   }
 
   .button:first-child {
-    background: $red;
+    background:var(--primary-color);
 
     &:hover {
       border-color: $redHover;
@@ -272,7 +275,8 @@ a {
 //-------------Landing page -------------------
 /* Global Styles */
 :root {
-  --primary-color: #e50914;
+  --primary-color:#3A7580;
+  --primary-color-hover: #265371;
   --dark-color: #141414;
   --light-color: #f4f4f4;
 }
@@ -318,7 +322,7 @@ img {
   width: 100%;
   height: 100vh;
   position: relative;
-  background: url('https://i.ibb.co/vXqDmnh/background.jpg') no-repeat center center/cover;
+  background: url('/images/background.jpg') no-repeat center center/cover;
 }
 
 .showcase::after {
