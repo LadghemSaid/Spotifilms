@@ -24,11 +24,12 @@ html, body, .container, .header {
 
 .bg-img img {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 20% !important;
   display: block;
-  min-width: 100%;
-  min-height: 100%;
+  min-width: 20%;
+  transform: translate(-50%, -50%);
+  width: 20%
 }
 
 .title {
@@ -287,7 +288,7 @@ button.trigger span::before {
 }
 
 .intro-effect-sidefixed .title h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', serif;
   font-weight: 700;
   padding: 0 0 0.5em 0;
   color: white;
