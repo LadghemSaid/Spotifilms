@@ -68,6 +68,8 @@ class Episodes
     private $Series;
 
 
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -197,4 +199,6 @@ class Episodes
     {
         return $this->getName();
     }
+
+
 }

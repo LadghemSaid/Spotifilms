@@ -8,7 +8,7 @@
 
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css">
         {% block stylesheets %}
             {# 'app' must match the first argument to addEntry() in webpack.config.js #}
@@ -68,120 +68,7 @@
                 crossorigin="anonymous" defer></script>
 
         <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
-        <script>
-            //Carousel
 
-            $(document).ready(function () {
-                const ele = '.promotion-carousel';
-                const $window = $(window);
-                const viewportHeight = $window.height();
-
-                let ui = {
-                    promo: ele + ' .promotion',
-                    promoText: ele + ' .promo-text',
-                    navigationItems: '.navigation a'
-                };
-
-                function isOnScreen(el) {
-                    const viewport = {
-                        top: $window.scrollTop()
-                    };
-
-                    viewport.bottom = viewport.top + viewportHeight;
-
-                    const bounds = el.offset();
-                    bounds.bottom = el.offset().top + el.outerHeight();
-
-                    return (!(viewport.bottom < bounds.top || viewport.top > bounds.bottom));
-                }
-
-                class ScrollEvents {
-
-                    run() {
-                        const $promo = $('.promotion');
-                        const $promoText = $('.promo-text');
-
-                        function smoothScroll(target) {
-                            $('body, html').animate({'scrollTop': target.offset().top}, 600);
-                        }
-
-                        $(ui.navigationItems).on('click', e => {
-                            e.preventDefault();
-                            smoothScroll($(e.currentTarget.hash));
-                        });
-
-                        $window.on('scroll', () => {
-
-                            $(ui.promo).toArray().forEach(el => {
-                                const $el = $(el);
-                                if (isOnScreen($el)) {
-                                    this.scrolly($el);
-                                }
-                            });
-                            this.updateNavigation();
-                            this.fadeAtTop($(ui.promoText));
-                        });
-
-                        this.updateNavigation();
-                    }
-
-                    scrolly(el) {
-                        const topOffset = el.offset().top;
-                        const height = el.height();
-                        let scrollTop = $window.scrollTop();
-                        const maxPixels = height / 4;
-                        const percentageScrolled = (scrollTop - topOffset) / height;
-                        let backgroundOffset = maxPixels * percentageScrolled;
-
-                        backgroundOffset = Math.round(Math.min(maxPixels, Math.max(0, backgroundOffset)));
-
-                        el.css(`background-position`, `right 0px top ${backgroundOffset}px`);
-                    }
-
-                    fadeAtTop(el) {
-                        const startPos = 0.25;
-
-                        el.toArray().forEach(el => {
-                            const $el = $(el);
-                            let position = $el.offset().top - $window.scrollTop() + viewportHeight / 6;
-                            let opacity = position < viewportHeight * startPos ? position / (viewportHeight * startPos) * 1 : 1;
-
-                            $el.css('opacity', opacity);
-                        });
-                    }
-
-                    updateNavigation() {
-                        $(ui.promo).toArray().forEach((el) => {
-                            let $el = $(el);
-                            let activeSection = $(`.navigation a[href="#${$el.attr('id')}"]`).data('number') - 1;
-
-                            if (($el.offset().top - $window.height() / 2 < $window.scrollTop()) && ($el.offset().top + $el.height() - $window.height() / 2 > $window.scrollTop())) {
-                                $(ui.navigationItems).eq(activeSection).addClass('active');
-                            } else {
-                                $(ui.navigationItems).eq(activeSection).removeClass('active');
-                            }
-                        });
-                    }
-                };
-
-                const scrollEvents = new ScrollEvents();
-
-                scrollEvents.run();
-            });
-
-        </script>
-
-        <script>
-            //slick carousel vous aimerz surment
-            $(document).ready(function () {
-                $('.carousel_you_may_like').slick({
-                    arrows:false,
-                    infinite: false,
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                });
-            });
-        </script>
 
         <script>
             //menuCircle

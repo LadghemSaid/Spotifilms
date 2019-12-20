@@ -7,6 +7,11 @@
     <div id="container" class=" intro-effect-sidefixed">
         <!-- Top Navigation -->
         <header class="header">
+            <div class="video-wrapper fixed-side hidden">
+                <video src="/video/series/truedetective.mp4" class="video" autoplay muted>
+
+                </video>
+            </div>
             <div class="bg-img"><img src="{{ series.image }}" alt="Background Image"/></div>
         </header>
 
@@ -34,233 +39,64 @@
                         </li>
                     </ul>
                 </div>
-                <p class="subline">{% for genre in series.kinds   %} [ {{ genre }} ]  {% endfor %}</p>
+                <p class="subline">{% for genre in series.kinds %} [ {{ genre }} ]  {% endfor %}</p>
                 <p style="display: block"> {{ series.language }}</p>
-                <p> {% if  series.status == "running"  %}En cours de difussion {% else %} Production terminer {% endif %} </p>
-                <p>Réalisé par<strong> Henry James</strong> &#8212; sortie le <strong>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</strong></p>
+                <p> {% if  series.status == "running" %}En cours de difussion {% else %} Production terminer {% endif %} </p>
+                <p>Réalisé par<strong> Henry James</strong> &#8212; sortie le
+                    <strong>{{ series.premiere ? series.premiere|date('Y-m-d') : '' }}</strong></p>
 
-                    {{ series.summary | raw }}
+                {{ series.summary | raw }}
 
             </div>
             <div>
-                <h4>Avis de la rédaction</h4>
-                <p>We may define a food to be any substance which will repair the functional waste of the body, increase its
-                    growth, or maintain the heat, muscular, and nervous energy. </p>
-                <p>In its most comprehensive sense, the oxygen of the air is a food; as although it is admitted by the
-                    lungs, it passes into the blood, and there re-acts upon the other food which has passed through the
-                    stomach. It is usual, however, to restrict the term food to such nutriment as enters the body by the
-                    intestinal canal. Water is often spoken of as being distinct from food, but for this there is no
-                    sufficient reason.</p>
-                <p>Many popular writers have divided foods into flesh-formers, heat-givers, and bone-formers. Although
-                    attractive from its simplicity, this classification will not bear criticism. Flesh-formers are also
-                    heat-givers. Only a portion of the mineral matter goes to form bone.</p>
-                <p>These last are not strictly foods, if we keep to the definition already given; but they are consumed with
-                    the true foods or nutrients, comprised in the other two classes, and cannot well be excluded from
-                    consideration.</p>
-                <p>Water forms an essential part of all the tissues of the body. It is the solvent and carrier of other
-                    substances.</p>
-                <p>Mineral Matter or Salts, is left as an ash when food is thoroughly burnt. The most important salts are
-                    calcium phosphate, carbonate and fluoride, sodium chloride, potassium phosphate and chloride, and
-                    compounds of magnesium, iron and silicon.</p>
-                <h3>Flesh-formers, heat-givers, and bone-formers</h3>
-                <p>Mineral matter is quite as necessary for plant as for animal life, and is therefore present in all food,
-                    except in the case of some highly-prepared ones, such as sugar, starch and oil. Children require a good
-                    proportion of calcium phosphate for the growth of their bones, whilst adults require less. The outer
-                    part of the grain of cereals is the richest in mineral constituents, white flour and rice are deficient.
-                    Wheatmeal and oatmeal are especially recommended for the quantity of phosphates and other salts
-                    contained in them. Mineral matter is necessary not only for the bones but for every tissue of the
-                    body.</p>
-                <p>When haricots are cooked, the liquid is often thrown away, and the beans served nearly dry, or with
-                    parsley or other sauce. Not only is the food less tasty but important saline constituents are lost. The
-                    author has made the following experiments:—German whole lentils, Egyptian split red lentils and medium
-                    haricot beans were soaked all night (16 hours) in just sufficient cold water to keep them covered. The
-                    water was poured off and evaporated, the residue heated in the steam-oven to perfect dryness and
-                    weighed. After pouring off the water, the haricots were boiled in more water until thoroughly cooked,
-                    the liquid being kept as low as possible. The liquid was poured off as clear as possible, from the
-                    haricots, evaporated and dried. The ash was taken in each case, and the alkalinity of the water-soluble
-                    ash was calculated as potash (K2O). The quantity of water which could be poured off was with the German
-                    lentils, half as much more than the original weight of the pulse; not quite as much could be poured off
-                    the others.</p>
+
+
+
                 <h1>Episodes </h1>
-                <table class="table">
-                    <thead>
-                    <tr>
+                <span>Durée :
+                    {% set duree = 0 %}
+                    {% for episode in episodes %}
+                        {% set duree = duree + (episode.duration/60)|round %}
+                    {% endfor %}
+                   <strong>{{ duree }}</strong> h</span>
+                <ul data-tabs id="tabs">
 
-                        <th>Nombre de visionnage entier</th>
-                        <th>Durée de la série (en h)</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-{#                        <td>#}
-{#                            {% set nbAvis = 0 %}#}
-{#                            {% for comment in comments %}#}
-{#                                {% set nbAvis = nbAvis + 1 %}#}
-{#                            {% endfor %}#}
-{#                            {{ nbAvis }}#}
-{#                        </td>#}
-                        <td>
-                            {% set nbVisio = 0 %}
-                            {{ nbVisio }}
-                        </td>
-                        <td>
-                            {% set duree = 0 %}
-                            {% for episode in episodes %}
-                                {% set duree = duree + (episode.duration/60)|round %}
-                            {% endfor %}
-                            {{ duree }}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                </ul>
+                <div id="seasons" class="seasons_series">
 
-                <div class="seasons_series">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-                               aria-controls="home" aria-selected="true">Saison 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                               aria-controls="profile" aria-selected="false">Saison 1</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab"
-                               aria-controls="contact" aria-selected="false">Saison 1</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active  slick_slider_episode" id="home" role="tabpanel"
-                             aria-labelledby="home-tab">
 
-                            <a href="#">
+
+                    <div id="all_episode" style="display: none">
+                        {% for episode in series.episodes %}
+
+                            <a href="#" data-season="{{ episode.season }}">
                                 <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
+                                    <img src="{{ episode.image }}" alt="">
+                                    <h4>{{ episode.name }} [ n° {{ episode.number }} ]</h4>
+                                    <p>{{ episode.summary | raw }} </p>
                                 </div>
                             </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tab-pane fade show  slick_slider_episode" id="profile" role="tabpanel"
-                             aria-labelledby="profile-tab">
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="tab-pane fade show slick_slider_episode" id="contact" role="tabpanel"
-                             aria-labelledby="contact-tab">
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a> <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                            <a href="#">
-                                <div class="episode_card">
-                                    <img src="img/episodejpg.jpg" alt="">
-                                    <h4>Episode n° 1</h4>
-                                </div>
-                            </a>
-                        </div>
+
+                        {% endfor %}
                     </div>
 
+
                 </div>
-                <section class="slick_slider_episode">
 
-
-                </section>
                 <section class="avis_user">
+                    <h4>Avis de la rédaction</h4>
+                    <p>We may define a food to be any substance which will repair the functional waste of the body,
+                        increase its
+                        growth, or maintain the heat, muscular, and nervous energy. </p>
+                    <p>In its most comprehensive sense, the oxygen of the air is a food; as although it is admitted by
+                        the
+                        lungs, it passes into the blood, and there re-acts upon the other food which has passed through
+                        the
+                        stomach. It is usual, however, to restrict the term food to such nutriment as enters the body by
+                        the
+                        intestinal canal. Water is often spoken of as being distinct from food, but for this there is no
+                        sufficient reason.</p>
+
                     <h1>Critiques Spectateurs</h1>
                     {% for comment in comments %}
                         {% if comment.Series.id == series.id %}
@@ -273,7 +109,8 @@
                                 {% endif %}
                                 <div class="critique">
                                     <div class="infos">
-                                        <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt="" class="profile_pic">
+                                        <img src="https://randomuser.me/api/portraits/thumb/men/75.jpg" alt=""
+                                             class="profile_pic">
                                         <span>John Doe</span>
                                         <span><strong>15</strong> avis</span>
                                     </div>
@@ -291,10 +128,8 @@
                     {% endfor %}
 
                     {% if comments|length == 0 %}
-                    <h2>Aucun avis utilisateur</h2>
+                        <h2>Aucun avis utilisateur</h2>
                     {% endif %}
-
-
 
 
                 </section>
@@ -312,9 +147,9 @@
     <a href="{{ path('series_index') }}">back to list</a>
 
     {% if is_granted('ROLE_ADMIN') == true %}
-    <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
+        <a href="{{ path('series_edit', {'id': series.id}) }}">edit</a>
 
-    {{ include('series/_delete_form.html.twig') }}
+        {{ include('series/_delete_form.html.twig') }}
     {% endif %}
     <h2>Potits avis</h2>
     {% if comments != null %}
@@ -350,6 +185,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12/dist/js/tabby.polyfills.js"></script>
     <script>
         /*!
  * classie v1.0.1
@@ -366,13 +202,13 @@
         /*jshint browser: true, strict: true, undef: true, unused: true */
         /*global define: false, module: false */
 
-        ( function( window ) {
+        (function (window) {
 
             'use strict';
 
 // class helper functions from bonzo https://github.com/ded/bonzo
 
-            function classReg( className ) {
+            function classReg(className) {
                 return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
             }
 
@@ -380,34 +216,33 @@
 // altho to be fair, the api sucks because it won't accept multiple classes at once
             var hasClass, addClass, removeClass;
 
-            if ( 'classList' in document.documentElement ) {
-                hasClass = function( elem, c ) {
-                    return elem.classList.contains( c );
+            if ('classList' in document.documentElement) {
+                hasClass = function (elem, c) {
+                    return elem.classList.contains(c);
                 };
-                addClass = function( elem, c ) {
-                    elem.classList.add( c );
+                addClass = function (elem, c) {
+                    elem.classList.add(c);
                 };
-                removeClass = function( elem, c ) {
-                    elem.classList.remove( c );
+                removeClass = function (elem, c) {
+                    elem.classList.remove(c);
                 };
-            }
-            else {
-                hasClass = function( elem, c ) {
-                    return classReg( c ).test( elem.className );
+            } else {
+                hasClass = function (elem, c) {
+                    return classReg(c).test(elem.className);
                 };
-                addClass = function( elem, c ) {
-                    if ( !hasClass( elem, c ) ) {
+                addClass = function (elem, c) {
+                    if (!hasClass(elem, c)) {
                         elem.className = elem.className + ' ' + c;
                     }
                 };
-                removeClass = function( elem, c ) {
-                    elem.className = elem.className.replace( classReg( c ), ' ' );
+                removeClass = function (elem, c) {
+                    elem.className = elem.className.replace(classReg(c), ' ');
                 };
             }
 
-            function toggleClass( elem, c ) {
-                var fn = hasClass( elem, c ) ? removeClass : addClass;
-                fn( elem, c );
+            function toggleClass(elem, c) {
+                var fn = hasClass(elem, c) ? removeClass : addClass;
+                fn(elem, c);
             }
 
             var classie = {
@@ -424,10 +259,10 @@
             };
 
 // transport
-            if ( typeof define === 'function' && define.amd ) {
+            if (typeof define === 'function' && define.amd) {
                 // AMD
-                define( classie );
-            } else if ( typeof exports === 'object' ) {
+                define(classie);
+            } else if (typeof exports === 'object') {
                 // CommonJS
                 module.exports = classie;
             } else {
@@ -435,18 +270,43 @@
                 window.classie = classie;
             }
 
-        })( window );
+        })(window);
     </script>
     <script>
 
         //slick carousel des episodes
         $(document).ready(function () {
-            $('.slick_slider_episode').slick({
-                infinite: false,
-                arrows:false,
-                slidesToShow: 4,
-                slidesToScroll: 1
-            });
+            let numberOfSeason = $('[data-season]')[$('[data-season]').length - 1].dataset.season;
+            //console.log( $('[data-season!="2"]'));
+           // console.log($('[data-season]')[$('[data-season]').length - 1].dataset.season);
+            for (let i = 1; i <= numberOfSeason; i++) {
+               // console.log('in');
+                let seasondiv = document.createElement('div');
+                seasondiv.id = 'saison' + i;
+                seasondiv.className = 'slider_episode';
+                document.getElementById('seasons').appendChild(seasondiv);
+
+                //tabs
+                let seasonstabsLi = document.createElement('li');
+                let seasonstabsA = document.createElement('a');
+                seasonstabsA.href = "#saison" + i;
+                seasonstabsA.text = 'Saison ' + i;
+                seasonstabsLi.appendChild(seasonstabsA);
+                document.getElementById('tabs').appendChild(seasonstabsLi);
+
+                //les episode
+                //console.log( );
+                let episodes = $("[data-season='" + i + "']");
+                for (let j = 0; j <= episodes.length - 1; j++) {
+                 //   console.log(episodes[j]);
+                    document.getElementById('saison' + i).appendChild(episodes[j]);
+                }
+
+            }
+            var tabs = new Tabby('[data-tabs]');
+
+
+
         });
     </script>
     <script>
@@ -586,10 +446,59 @@
             }
 
             window.addEventListener('scroll', scrollPage);
-            trigger.addEventListener('click', function () {
-                toggle('reveal');
-            });
+
         })();
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Get media - with autoplay disabled (audio or video)
+            var media = $('video').not("[autoplay='autoplay']");
+            var tolerancePixel = 100;
+
+            function checkMedia(){
+                // Get current browser top and bottom
+                var scrollTop = $(window).scrollTop() + tolerancePixel;
+                var scrollBottom = $(window).scrollTop() + $(window).height() - tolerancePixel;
+
+                media.each(function(index, el) {
+                    var yTopMedia = $(this).offset().top;
+                    var yBottomMedia = $(this).height() + yTopMedia;
+
+                    if(scrollTop < yBottomMedia && scrollBottom > yTopMedia){ //view explaination in `In brief` section above
+                        $(this).get(0).play();
+                    } else {
+                        $(this).get(0).pause();
+                    }
+                });
+
+                //}
+            }
+            $(document).on('scroll', checkMedia);
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // hide .navbar first
+
+            // fade in .navbar
+            $(function () {
+                $(window).scroll(function () {
+                    // set distance user needs to scroll before we fadeIn navbar
+                    if ($(this).scrollTop() > 50) {
+                        $('.video-wrapper')[0].classList.remove('hidden');
+                    } else {
+                        $('.video-wrapper')[0].classList.add('hidden');
+
+                    }
+
+
+                });
+
+
+            });
+
+        });
+
     </script>
 {% endblock %}
 

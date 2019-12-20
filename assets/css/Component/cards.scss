@@ -2,7 +2,7 @@
 
 $red: #E94438;
 
-.carousel_cards{
+.carousel_cards {
 
   .card::before {
     content: '';
@@ -20,7 +20,7 @@ $red: #E94438;
     margin: 100px auto 20px;
     width: 400px;
     height: 500px;
-    overflow:hidden;
+    overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 6px 40px rgba(#5A667F, .3);
     border: none;
@@ -71,7 +71,8 @@ $red: #E94438;
           color: $red;
           display: flex;
           align-items: center;
-          .color-grey{
+
+          .color-grey {
             color: #8d8d8d
           }
         }
@@ -90,6 +91,16 @@ $red: #E94438;
           color: #fff;
           font-size: 14px;
           margin: 8px 0;
+
+          &::after {
+            content: "";
+            background: linear-gradient(#e6646500, #020125 70%);
+            position: absolute;
+            top: 0;
+            height: 170px;
+            left: 0;
+            right: 0;
+          }
         }
 
         a {

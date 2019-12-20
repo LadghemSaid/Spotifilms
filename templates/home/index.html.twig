@@ -50,7 +50,7 @@
                                 <p class="body long">{{ series[0].summary|raw }}</p>
                             </a>
                             <div class='rating-stars'>
-                                <div class="note"><span style="font-size: 5rem;">{{ series[0].score }}</span><span
+                                <div class="note"><span style="font-size: 5rem;"> {{ series[0].score  ? series[0].score : "- " }}</span><span
                                             style="font-size: 3rem;">/</span><span style="font-size: 3rem;">10</span>
                                 </div>
                                 <ul id='stars'>
@@ -75,11 +75,11 @@
                             <ul>
                                 <li><i class="fa fa-assistive-listening-systems"></i> Disponible en audio descriptions
                                 </li>
-                                <li><i class="fa fa-assistive-listening-systems"></i> <strong>3</strong> saisons des
+                                <li><i class="fa fa-clock"></i> <strong>{{series[0].episodes|length}}</strong> episodes des
                                     heures
-                                    de <strong>suspense</strong> en vu !
+                                    de <strong>{{series[0].kinds[0]}}</strong> en vu !
                                 </li>
-                                <li><i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
+                                <li><i class="fa fa-comment"></i> <strong>{{  series[0].comments | length }}</strong> Avis</li>
                             </ul>
                             <div class="buttons">
                                 <a class="button sho-play-link"
@@ -121,10 +121,10 @@
                                     <i class="fa fa-star color-grey" aria-hidden="true"></i>
                                     <i class="fa fa-star color-grey" aria-hidden="true"></i>
                                     <i class="fa fa-star color-grey" aria-hidden="true"></i>
-                                    <span style="margin-left: auto"> {{ serie.score }}/10</span>
+                                    <span style="margin-left: auto"> {{ serie.score  ? serie.score : "- " }}/10</span>
 
                                 </div>
-                                <i class="fa fa-comment"></i> <strong>30</strong> Avis</li>
+                                <i class="fa fa-comment"></i> <strong>{{  serie.comments | length }}</strong> Avis</li>
                             </div>
 
                             <div class="content" style="margin-top: -305px;
@@ -156,14 +156,180 @@ min-height: 170px;">
     <script>
         $(document).ready(function () {
             let ratings = $('.stars_cards');
-            Object.keys(ratings).forEach((rate,i)=>{
-                console.log(rate)
-                let score = rate.dataset.score;
-                if(score > 0 && score < 2){
-                    console.log(rate.children());
+            ratings.each((rate)=>{
+
+                let score = ratings[rate].dataset.score;
+                 if( score > 9){
+                     for(let i = 0; i<9;i++){
+                         ratings[rate].children[i].classList.remove('color-grey');
+                     }
+
+                 }
+                if( score > 8){
+                    for(let i = 0; i<8;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
 
                 }
+                if( score > 7){
+                    for(let i = 0; i<7;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
+
+                }
+                if( score > 6){
+                    for(let i = 0; i<6;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
+
+                }
+                if( score > 5){
+                    for(let i = 0; i<5;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
+
+                }
+                if( score > 4){
+                    for(let i = 0; i<4;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
+
+                }
+                if( score > 3){
+                    for(let i = 0; i<3;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
+
+                }
+                if( score > 2){
+                    for(let i = 0; i<2;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
+
+                }
+                if( score > 1){
+                    for(let i = 0; i<1;i++){
+                        ratings[rate].children[i].classList.remove('color-grey');
+                    }
+
+                }
+
+
             })
         })
+    </script>
+    <script>
+        //Carousel
+
+        $(document).ready(function () {
+            const ele = '.promotion-carousel';
+            const $window = $(window);
+            const viewportHeight = $window.height();
+
+            let ui = {
+                promo: ele + ' .promotion',
+                promoText: ele + ' .promo-text',
+                navigationItems: '.navigation a'
+            };
+
+            function isOnScreen(el) {
+                const viewport = {
+                    top: $window.scrollTop()
+                };
+
+                viewport.bottom = viewport.top + viewportHeight;
+
+                const bounds = el.offset();
+                bounds.bottom = el.offset().top + el.outerHeight();
+
+                return (!(viewport.bottom < bounds.top || viewport.top > bounds.bottom));
+            }
+
+            class ScrollEvents {
+
+                run() {
+                    const $promo = $('.promotion');
+                    const $promoText = $('.promo-text');
+
+                    function smoothScroll(target) {
+                        $('body, html').animate({'scrollTop': target.offset().top}, 600);
+                    }
+
+                    $(ui.navigationItems).on('click', e => {
+                        e.preventDefault();
+                        smoothScroll($(e.currentTarget.hash));
+                    });
+
+                    $window.on('scroll', () => {
+
+                        $(ui.promo).toArray().forEach(el => {
+                            const $el = $(el);
+                            if (isOnScreen($el)) {
+                                this.scrolly($el);
+                            }
+                        });
+                        this.updateNavigation();
+                        this.fadeAtTop($(ui.promoText));
+                    });
+
+                    this.updateNavigation();
+                }
+
+                scrolly(el) {
+                    const topOffset = el.offset().top;
+                    const height = el.height();
+                    let scrollTop = $window.scrollTop();
+                    const maxPixels = height / 4;
+                    const percentageScrolled = (scrollTop - topOffset) / height;
+                    let backgroundOffset = maxPixels * percentageScrolled;
+
+                    backgroundOffset = Math.round(Math.min(maxPixels, Math.max(0, backgroundOffset)));
+
+                    el.css(`background-position`, `right 0px top ${backgroundOffset}px`);
+                }
+
+                fadeAtTop(el) {
+                    const startPos = 0.25;
+
+                    el.toArray().forEach(el => {
+                        const $el = $(el);
+                        let position = $el.offset().top - $window.scrollTop() + viewportHeight / 6;
+                        let opacity = position < viewportHeight * startPos ? position / (viewportHeight * startPos) * 1 : 1;
+
+                        $el.css('opacity', opacity);
+                    });
+                }
+
+                updateNavigation() {
+                    $(ui.promo).toArray().forEach((el) => {
+                        let $el = $(el);
+                        let activeSection = $(`.navigation a[href="#${$el.attr('id')}"]`).data('number') - 1;
+
+                        if (($el.offset().top - $window.height() / 2 < $window.scrollTop()) && ($el.offset().top + $el.height() - $window.height() / 2 > $window.scrollTop())) {
+                            $(ui.navigationItems).eq(activeSection).addClass('active');
+                        } else {
+                            $(ui.navigationItems).eq(activeSection).removeClass('active');
+                        }
+                    });
+                }
+            };
+
+            const scrollEvents = new ScrollEvents();
+
+            scrollEvents.run();
+        });
+
+    </script>
+
+    <script>
+        //slick carousel vous aimerz surment
+        $(document).ready(function () {
+            $('.carousel_you_may_like').slick({
+                arrows:false,
+                infinite: false,
+                slidesToShow: 3,
+                slidesToScroll: 1
+            });
+        });
     </script>
 {% endblock %}

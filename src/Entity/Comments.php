@@ -50,6 +50,8 @@ class   Comments
      */
     private $Series;
 
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -126,4 +128,6 @@ class   Comments
 
         return $this;
     }
+
+
 }

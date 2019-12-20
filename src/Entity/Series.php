@@ -68,9 +68,21 @@ class Series
      */
     private $Kinds;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comments", mappedBy="Series", orphanRemoval=true)
+     */
+    private $Comments;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Episodes", mappedBy="Series", orphanRemoval=true)
+     */
+    private $Episodes;
+
     public function __construct()
     {
         $this->Kinds = new ArrayCollection();
+        $this->Comments = new ArrayCollection();
+        $this->Episodes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -215,5 +227,67 @@ class Series
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->Comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->Comments->contains($comment)) {
+            $this->Comments[] = $comment;
+            $comment->setSeries($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->Comments->contains($comment)) {
+            $this->Comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getSeries() === $this) {
+                $comment->setSeries(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Episodes[]
+     */
+    public function getEpisodes(): Collection
+    {
+        return $this->Episodes;
+    }
+
+    public function addEpisode(Episodes $episode): self
+    {
+        if (!$this->Episodes->contains($episode)) {
+            $this->Episodes[] = $episode;
+            $episode->setSeries($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEpisode(Episodes $episode): self
+    {
+        if ($this->Episodes->contains($episode)) {
+            $this->Episodes->removeElement($episode);
+            // set the owning side to null (unless already changed)
+            if ($episode->getSeries() === $this) {
+                $episode->setSeries(null);
+            }
+        }
+
+        return $this;
     }
 }

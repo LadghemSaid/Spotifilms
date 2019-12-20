@@ -1,5 +1,4 @@
 
-
 html, body, .container, .header {
 
 }
@@ -8,7 +7,7 @@ html, body, .container, .header {
 .header {
   position: relative;
   margin: 0 auto;
- // min-height: 560px;
+  // min-height: 560px;
   width: 100%;
 }
 
@@ -213,8 +212,8 @@ button.trigger span::before {
 .intro-effect-sidefixed:not(.notrans) .bg-img::after,
 .intro-effect-sidefixed:not(.notrans) .title p,
 .intro-effect-sidefixed:not(.notrans) .content > div {
-  -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-  transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+  -webkit-transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
   -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
@@ -262,7 +261,7 @@ button.trigger span::before {
 .intro-effect-sidefixed .bg-img::before {
   width: 100%;
   height: 100%;
-  background-color: rgba(247,214,169,0.1);
+  background-color: rgba(247, 214, 169, 0.1);
   transition: all 0.3s ease-in-out;
 
 }
@@ -271,7 +270,6 @@ button.trigger span::before {
   transition: all 0.3s ease-in-out;
 
 }
-
 
 
 .intro-effect-sidefixed .title {
@@ -292,7 +290,7 @@ button.trigger span::before {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
   padding: 0 0 0.5em 0;
-  color:white;
+  color: white;
 }
 
 .intro-effect-sidefixed .title p {
@@ -389,7 +387,7 @@ button.trigger span::before {
     border-right-width: 0px;
     right: 0px;
     left: 0px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .intro-effect-side.modify .bg-img::after {
@@ -429,45 +427,83 @@ button.trigger span::before {
     display: none;
   }
 }
-.slick_slider_episode{
-  margin: 0px!important;
-  div{
-    margin: 0!important;
-  }
 
-}
-.seasons_series{
-  .nav-tabs{
-    min-width: 100px;
-  }
-  .tab-content{
-    width: 100%;
-  }
+.slider_episode {
   display: flex;
-  li{
+  margin: 0px !important;
 
-    margin-left: 10px;
+  a {
+    margin: 20px 40px;
+
+    min-width: 200px;
+  }
+
+  div {
+    margin: 0 !important;
+  }
+
+}
+
+.seasons_series {
+  overflow-x: scroll;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px !important;
+}
+
+#tabs {
+  display: flex;
+
+  li {
+    margin-right: 10px;
   }
 }
-.episode_card{
-  margin: 0!important;
-  img{
+
+.episode_card {
+  margin: 0 !important;
+
+  img {
     width: 150px;
   }
 }
-.avis_user{
-  .critique{
+
+.avis_user {
+  .critique {
     margin-top: 0px;
     margin-bottom: 0px;
     display: flex;
-    .infos{
-      .profile_pic{
+
+    .infos {
+      .profile_pic {
 
       }
     }
-    .text_critique{
+
+    .text_critique {
       display: flex;
       flex-direction: column;
     }
   }
+}
+
+.video-wrapper {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  width: 540px;
+  transition: all .5s ease-in-out;
+  left: 0px;
+
+  .video {
+height: 100vh;
+  }
+}
+
+.fixed-side {
+  position: fixed;
+}
+
+.hidden {
+  left: -540px;
+  transition: all .5s ease-in-out;
 }
