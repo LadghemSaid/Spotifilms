@@ -4,16 +4,40 @@
 
 {% block body %}
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12 ">
-                <h1>Inscription</h1>
+        <div class="card p-3">
+            <form method="post">
 
-                <div class="card">
-                    {{ form(form) }}
+
+                <h1 class="h3 mb-3 font-weight-bold text-dark">S'inscrire</h1>
+                <label for="inputUsername">Nom d'utilisateur</label>
+                <input type="text"  name="username" id="inputUsername" class="form-control mb-3"
+                       required autofocus>
+
+                <label for="inputMail">Adresse mail</label>
+                <input type="email" name="email" id="inputEmail" class="form-control mb-3" required>
+                <label for="inputPassword">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control mb-3" required>
+
+
+
+
+                {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+                #}
+
+                <div class="checkbox mb-3 text-center">
+                    <label>
+                        <input type="checkbox" name="_remember_me"> En créeant un compte, vous acceptez nos CGU
+                    </label>
                 </div>
 
-            </div>
+                <div class="text-center">
+                    <button class="btn btn-lg btn-primary rounded-lg font-weight-medium m-*-auto" type="submit">
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
         </div>
-        <a class="btn btn-danger" role="button" href="{{ path('user_index') }}">Annuler</a>
     </div>
 {% endblock %}

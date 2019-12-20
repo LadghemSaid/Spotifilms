@@ -1,10 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Page not found</h1>
+    <div class="container" style="height: 100vh">
 
-    <p>
-        The requested page couldn't be located. Checkout for any URL
-        misspelling or <a href="{{ path('home') }}">return to the homepage</a>.
-    </p>
+        <div class="noArticleFound">
+            <div class="box">
+                <div class="box__ghost">
+                    <div class="symbol"></div>
+                    <div class="symbol"></div>
+                    <div class="symbol"></div>
+                    <div class="symbol"></div>
+                    <div class="symbol"></div>
+                    <div class="symbol"></div>
+
+                    <div class="box__ghost-container">
+                        <div class="box__ghost-eyes">
+                            <div class="box__eye-left"></div>
+                            <div class="box__eye-right"></div>
+                        </div>
+                        <div class="box__ghost-bottom">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="box__ghost-shadow"></div>
+                </div>
+
+                <div class="box__description">
+                    <div class="box__description-container">
+                        <div class="box__description-title">Whoops!</div>
+                        <div class="box__description-text">Désolé nous n'avons pas trouvés ce que vous chercher !
+                        </div>
+                    </div>
+
+                    <form class=" mt-2 mt-md-0 box__button__form" method="post"
+                          action="/">
+
+                        <input class="box__button__input" type="text" name="title" placeholder="Rechercher"
+                               aria-label="Search">
+                        <button class="box__button__rechercher" type="submit">Rechercher</button>
+                    </form>
+                    <a href="/"  class="box__button">Retour</a>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            //js pour la 404
+            var pageX = $(document).width();
+            var pageY = $(document).height();
+            var mouseY = 0;
+            var mouseX = 0;
+
+            $(document).mousemove(function (event) {
+                //verticalAxis
+                mouseY = event.pageY;
+                yAxis = (pageY / 2 - mouseY) / pageY * 300;
+                //horizontalAxis
+                mouseX = event.pageX / -pageX;
+                xAxis = -mouseX * 100 - 100;
+
+                $('.box__ghost-eyes').css({'transform': 'translate(' + xAxis + '%,-' + yAxis + '%)'});
+
+                //console.log('X: ' + xAxis);
+
+            });
+        })
+
+    </script>
 {% endblock %}
