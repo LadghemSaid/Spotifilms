@@ -434,9 +434,8 @@ button.trigger span::before {
   margin: 0px !important;
 
   a {
-    margin: 20px 40px;
+    margin: 20px 20px;
 
-    min-width: 200px;
   }
 
   div {
@@ -461,6 +460,14 @@ button.trigger span::before {
 }
 
 .episode_card {
+  .number {
+
+    position: absolute;
+    font-size: 6rem;
+    font-weight: bold;
+    color: var(--primary-color);
+
+  }
   margin: 0 !important;
 
   img {

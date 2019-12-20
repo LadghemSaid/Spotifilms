@@ -51,7 +51,6 @@
             <div>
 
 
-
                 <h1>Episodes </h1>
                 <span>Durée :
                     {% set duree = 0 %}
@@ -65,17 +64,19 @@
                 <div id="seasons" class="seasons_series">
 
 
-
                     <div id="all_episode" style="display: none">
                         {% for episode in series.episodes %}
 
-                            <a href="#" data-season="{{ episode.season }}">
-                                <div class="episode_card">
-                                    <img src="{{ episode.image }}" alt="">
-                                    <h4>{{ episode.name }} [ n° {{ episode.number }} ]</h4>
-                                    <p>{{ episode.summary | raw }} </p>
-                                </div>
-                            </a>
+                                <a href="#"  data-season="{{ episode.season }}" >
+                                    <div class="episode_card">
+                                        <span class="number"> {{ episode.number }}</span>
+                                        <img src="{{ episode.image }}" alt="Stack Overflow logo and icons and such"
+                                             onerror="if (this.src != 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png') this.src = 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png';">
+
+                                        <h4>{{ episode.name }} </h4>
+                                    </div>
+                                </a>
+
 
                         {% endfor %}
                     </div>
@@ -186,6 +187,7 @@
 
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12/dist/js/tabby.polyfills.js"></script>
+
     <script>
         /*!
  * classie v1.0.1
@@ -278,13 +280,16 @@
         $(document).ready(function () {
             let numberOfSeason = $('[data-season]')[$('[data-season]').length - 1].dataset.season;
             //console.log( $('[data-season!="2"]'));
-           // console.log($('[data-season]')[$('[data-season]').length - 1].dataset.season);
+            // console.log($('[data-season]')[$('[data-season]').length - 1].dataset.season);
             for (let i = 1; i <= numberOfSeason; i++) {
-               // console.log('in');
+                // console.log('in');
                 let seasondiv = document.createElement('div');
+                //let seasonUl = document.createElement('ul');
+                //seasonUl.className
                 seasondiv.id = 'saison' + i;
-                seasondiv.className = 'slider_episode';
+                seasondiv.className = 'slider_episode frame';
                 document.getElementById('seasons').appendChild(seasondiv);
+               // document.getElementById('saison' + i).appendChild(seasonUl);
 
                 //tabs
                 let seasonstabsLi = document.createElement('li');
@@ -298,12 +303,15 @@
                 //console.log( );
                 let episodes = $("[data-season='" + i + "']");
                 for (let j = 0; j <= episodes.length - 1; j++) {
-                 //   console.log(episodes[j]);
+                    //   console.log(episodes[j]);
                     document.getElementById('saison' + i).appendChild(episodes[j]);
                 }
 
+
             }
+
             var tabs = new Tabby('[data-tabs]');
+
 
 
 
@@ -450,21 +458,21 @@
         })();
     </script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Get media - with autoplay disabled (audio or video)
             var media = $('video').not("[autoplay='autoplay']");
             var tolerancePixel = 100;
 
-            function checkMedia(){
+            function checkMedia() {
                 // Get current browser top and bottom
                 var scrollTop = $(window).scrollTop() + tolerancePixel;
                 var scrollBottom = $(window).scrollTop() + $(window).height() - tolerancePixel;
 
-                media.each(function(index, el) {
+                media.each(function (index, el) {
                     var yTopMedia = $(this).offset().top;
                     var yBottomMedia = $(this).height() + yTopMedia;
 
-                    if(scrollTop < yBottomMedia && scrollBottom > yTopMedia){ //view explaination in `In brief` section above
+                    if (scrollTop < yBottomMedia && scrollBottom > yTopMedia) { //view explaination in `In brief` section above
                         $(this).get(0).play();
                     } else {
                         $(this).get(0).pause();
@@ -473,6 +481,7 @@
 
                 //}
             }
+
             $(document).on('scroll', checkMedia);
         });
     </script>
