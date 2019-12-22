@@ -12,7 +12,7 @@
 
                 </video>
             </div>
-            <div class="bg-img"><img src="{{ series.image }}" alt="Background Image"/></div>
+            <div class="bg-img"><img src="{{ asset(series.image) }}" alt="Background Image"/></div>
         </header>
 
         <article class="content">
@@ -70,7 +70,7 @@
                                 <a href="#"  data-season="{{ episode.season }}" >
                                     <div class="episode_card">
                                         <span class="number"> {{ episode.number }}</span>
-                                        <img src="{{ episode.image }}" alt="Stack Overflow logo and icons and such"
+                                        <img src="{{ asset(series.image) }}" alt="Stack Overflow logo and icons and such"
                                              onerror="if (this.src != 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png') this.src = 'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-1-scaled.png';">
 
                                         <h4>{{ episode.name }} </h4>

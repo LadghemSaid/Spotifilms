@@ -7,10 +7,10 @@
 
 
     <!-- Landing page -->
-    <header class="showcase">
+    <header class="showcase" style=" background: url('{{ asset('/images/background.jpg') }}') no-repeat center center/cover;">
         <div class="showcase-top">
             <a href="/">
-                <img src="/images/Logo.png" alt=""/>
+                <img src="{{ asset('/images/Logo.png') }}" alt=""/>
             </a>
             {% if is_granted('ROLE_USER') %}
                 <a href="#" class="btn btn-rounded" style="margin-left: auto;">Mon compte</a>
@@ -37,7 +37,7 @@
         <div class="promotions">
             <div>
                 <div class="promotion" id="section1"
-                     style="background-image: url('/images/background2.jpg')">
+                     style="background-image: url('{{ asset('/images/background2.jpg') }}')">
                     <div class="shade"></div>
                     <div class="promo-detail cycle-overlay">
                         <div class="promo-text">
