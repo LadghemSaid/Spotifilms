@@ -26,10 +26,13 @@ $red: #3A7580;
     border: none;
 
     .inner {
+      display: flex;
+      flex-direction: column;
       font-family: 'Lato', open-sans;
 
       .header {
-        position: relative;
+        top: 0px;
+        position: absolute;
         border-radius: 10px;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
@@ -79,9 +82,9 @@ $red: #3A7580;
       }
 
       .content {
-        position: relative;
+        top: 270px;
+        position: absolute;
         padding: 0 10px;
-        margin-top: 175px;
         background: linear-gradient(#e6646500, #020125 40%);
 
         p {
@@ -89,6 +92,7 @@ $red: #3A7580;
           font-weight: 300;
           width: 90%;
           color: #fff;
+          min-height: 200px;
           font-size: 14px;
           margin: 8px 0;
 
@@ -97,7 +101,7 @@ $red: #3A7580;
             background: linear-gradient(#e6646500, #020125 70%);
             position: absolute;
             top: 0;
-            height: 170px;
+            height: 230px;
             left: 0;
             right: 0;
           }

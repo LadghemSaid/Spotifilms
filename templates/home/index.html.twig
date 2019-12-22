@@ -37,7 +37,7 @@
         <div class="promotions">
             <div>
                 <div class="promotion" id="section1"
-                     style="background-image: url(https://picsum.photos/1440/900?image=319)">
+                     style="background-image: url('/images/background2.jpg')">
                     <div class="shade"></div>
                     <div class="promo-detail cycle-overlay">
                         <div class="promo-text">
@@ -106,8 +106,8 @@
                     <div class="card">
                         <img src="{{ serie.image }}" alt="">
 
-                        <div class="inner" style="display: flex;flex-direction: column;">
-                            <div class="header" style="top: -565px;">
+                        <div class="inner" >
+                            <div class="header">
                                 <h1>{{ serie.name }}</h1>
                                 <a href=""><i class="fa fa-bookmark bookmark" aria-hidden="true"></i></a>
                                 <div class="stars stars_cards" data-score="{{  serie.score }}">
@@ -127,8 +127,7 @@
                                 <i class="fa fa-comment"></i> <strong>{{  serie.comments | length }}</strong> Avis</li>
                             </div>
 
-                            <div class="content" style="margin-top: -305px;
-min-height: 170px;">
+                            <div class="content">
                                 <div class="btn_row">
                                     <a href="{{ path('series_show',  {id: serie.id}) }}">Voir<i
                                                 class="fa fa-caret-right" aria-hidden="true"></i>
